@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fikir Catering Japan - Authentic Ethiopian Cuisine</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        .ethiopian-flag-line {
+            height: 4px;
+            background: linear-gradient(to right, #0B6623 33.33%, #F2C300 33.33%, #F2C300 66.66%, #D62612 66.66%);
+            margin: 1rem 0;
+        }
+        
+        .ethiopian-flag-line-thin {
+            height: 2px;
+            background: linear-gradient(to right, #0B6623 33.33%, #F2C300 33.33%, #F2C300 66.66%, #D62612 66.66%);
+        }
+        
+        .navbar {
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .navbar.scrolled {
+            background: rgba(10, 10, 10, 0.95);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-content {
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .menu-item {
+            animation: fadeInUp 0.8s ease-out;
+            animation-fill-mode: both;
+            overflow: hidden;
+        }
+        
+        .menu-item:nth-child(1) { animation-delay: 0.1s; }
+        .menu-item:nth-child(2) { animation-delay: 0.2s; }
+        .menu-item:nth-child(3) { animation-delay: 0.3s; }
+        .menu-item:nth-child(4) { animation-delay: 0.4s; }
+        
+        .menu-item img {
+            transition: transform 0.3s ease;
+        }
+        
+        .menu-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .gold-text {
+            color: #F2C300;
+        }
+        
+        .ethiopian-border {
+            border: 2px solid;
+            border-image: linear-gradient(to right, #0B6623, #F2C300, #D62612) 1;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #0B6623 0%, #F2C300 50%, #D62612 100%);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(242, 195, 0, 0.6), 0 5px 15px rgba(0, 0, 0, 0.3);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            font-weight: 700;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(242, 195, 0, 0.8), 0 10px 25px rgba(0, 0, 0, 0.4);
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 1);
+        }
+        
+        .form-input {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: #F2C300;
+            outline: none;
+        }
+        
+        .logo-img {
+            max-height: 60px;
+            width: auto;
+        }
+        
+        .hero-logo {
+            max-height: 600px;
+            width: auto;
+            animation: fadeIn 1.2s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .menu-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px 8px 0 0;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-logo {
+                max-height: 400px;
+            }
+            .logo-img {
+                max-height: 45px;
+            }
+            .menu-image {
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav id="navbar" class="navbar fixed top-0 left-0 right-0 z-50 px-6 py-4">
+        <div class="container mx-auto flex items-center justify-between">
+            <div class="flex items-center">
+                <img src="images/mom logo .png" alt="Fikir Catering Logo" class="logo-img">
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="text-white hover:text-yellow-400 transition-colors">Home</a>
+                <a href="#menu" class="text-white hover:text-yellow-400 transition-colors">Menu</a>
+                <a href="#about" class="text-white hover:text-yellow-400 transition-colors">About</a>
+                <a href="#order" class="text-white hover:text-yellow-400 transition-colors">Order</a>
+            </div>
+            <!-- Mobile Menu Button -->
+            <button id="mobileMenuBtn" class="md:hidden text-white">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden mt-4 pb-4">
+            <div class="flex flex-col space-y-4">
+                <a href="#home" class="text-white hover:text-yellow-400 transition-colors">Home</a>
+                <a href="#menu" class="text-white hover:text-yellow-400 transition-colors">Menu</a>
+                <a href="#about" class="text-white hover:text-yellow-400 transition-colors">About</a>
+                <a href="#order" class="text-white hover:text-yellow-400 transition-colors">Order</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center pt-20 px-6 relative bg-gradient-to-b from-gray-900 to-black">
+        <!-- Cover Page Background -->
+        <div class="absolute inset-0 overflow-hidden opacity-30">
+            <img src="images/cover page .jpeg" alt="Ethiopian Food Collage" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+        </div>
+        <div class="container mx-auto text-center hero-content relative z-10">
+            <img src="images/mom logo .png" alt="Fikir Catering Logo" class="hero-logo mx-auto mb-6">
+            
+            <!-- Contact Info -->
+            <div class="mb-6 flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 text-white">
+                <div class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                    </svg>
+                    <a href="tel:080-3911-8822" class="text-lg md:text-xl hover:text-yellow-400 transition-colors font-semibold">
+                        080-3911-8822
+                    </a>
+                </div>
+                <div class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                    <p class="text-lg md:text-xl font-semibold">
+                        Near Gotanno / Ayase Station
+                    </p>
+                </div>
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl font-bold mb-4 gold-text" style="font-family: 'Playfair Display', serif;">
+                Fikir Catering Japan
+            </h1>
+            <p class="text-2xl md:text-3xl mb-2 text-gray-300">Cooked with Love 
+             <br> Tokyo, Osaka , Kyoto ,chiba ,saitama 
+            </p>
+            <p class="text-lg md:text-xl mb-8 text-gray-400" style="font-family: 'Playfair Display', serif;">
+                ፍቅር እንጀራ እና ጣፍጭ ምግቦች 
+            </p>
+            <div class="ethiopian-flag-line max-w-md mx-auto mb-8"></div>
+            <a href="#order" class="btn-primary text-white px-10 py-4 rounded-lg inline-block text-xl font-semibold">
+                Place Order 
+                <span class="block text-base mt-1 opacity-90">(ለማዘዝ ይህን ይጫኑ)</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-20 px-6 bg-black">
+        <div class="container mx-auto">
+            <h2 class="section-title text-4xl md:text-5xl text-center mb-4 gold-text">
+                Our Menu ( የ ምግብ አማራጮች )
+            </h2>
+            <div class="ethiopian-flag-line max-w-xs mx-auto mb-12"></div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Menu Item 1 - Injera Set -->
+                <div class="menu-item bg-gray-900 rounded-lg overflow-hidden hover:bg-gray-800 transition-all border border-gray-800 hover:border-yellow-400">
+                    <img src="images/እንጀራ.jpg" alt="Injera Set" class="menu-image">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3 gold-text" style="font-family: 'Playfair Display', serif;">
+                            ነጭ እንጀራ (enjera set )
+                        </h3>
+                        <p class="text-gray-400 mb-4">
+                            Traditional Ethiopian injera. 
+                        </p>
+                        <div class="space-y-2 text-sm text-gray-300 mb-2">
+                            <div class="flex justify-between">
+                                <span>1 Injera</span>
+                                <span class="gold-text font-semibold">¥400</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>5 Injera</span>
+                                <span class="gold-text font-semibold">¥1,900</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>10 Injera</span>
+                                <span class="gold-text font-semibold">¥3,700</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>15 Injera</span>
+                                <span class="gold-text font-semibold">¥5,400</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>30 Injera</span>
+                                <span class="gold-text font-semibold">¥9,900</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-3">
+                            Free delivery: ¥8,000+ or within 10km
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Menu Item 2 - Tibs -->
+                <div class="menu-item bg-gray-900 rounded-lg overflow-hidden hover:bg-gray-800 transition-all border border-gray-800 hover:border-yellow-400">
+                    <img src="images/ጥብስ.jpg" alt="Tibs" class="menu-image">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3 gold-text" style="font-family: 'Playfair Display', serif;">
+                            Tibs ( ጥብስ )
+                        </h3>
+                        <p class="text-gray-400 mb-4">
+                            Pan-fried beef seasoned with herbs and berbere. ለ አንድ ሰው 
+                        </p>
+                        <p class="text-2xl font-bold text-white">¥</p>
+                    </div>
+                </div>
+                
+                <!-- Menu Item 3 - Doro Wat -->
+                <div class="menu-item bg-gray-900 rounded-lg overflow-hidden hover:bg-gray-800 transition-all border border-gray-800 hover:border-yellow-400">
+                    <img src="images/doro.avif" alt="Doro Wat" class="menu-image">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3 gold-text" style="font-family: 'Playfair Display', serif;">
+                            Doro Wat ( ዶሮ ወጥ )
+                        </h3>
+                        <p class="text-gray-400 mb-4">
+                            Spicy chicken stew with rich berbere sauce. ለ አንድ ሰው 
+                        </p>
+                        <p class="text-2xl font-bold text-white">¥</p>
+                    </div>
+                </div>
+                
+                <!-- Menu Item 4 - Veggie Combo / Quanta Firfir -->
+                <div class="menu-item bg-gray-900 rounded-lg overflow-hidden hover:bg-gray-800 transition-all border border-gray-800 hover:border-yellow-400">
+                    <img src="images/vaggie combo .jpeg" alt="Veggie Combo" class="menu-image">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3 gold-text" style="font-family: 'Playfair Display', serif;">
+                            Veggie Combo ( በየአይነት )
+                        </h3>
+                        <p class="text-gray-400 mb-4">
+                            Misir, Gomen, Shiro, Kik Alicha served with injera.
+                        </p>
+                        <p class="text-2xl font-bold text-white">¥</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-6 bg-gray-900">
+        <div class="container mx-auto max-w-4xl text-center">
+            <h2 class="section-title text-4xl md:text-5xl mb-4 gold-text">
+                About Fikir Catering Japan
+            </h2>
+            <div class="ethiopian-flag-line max-w-xs mx-auto mb-12"></div>
+            <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-6">
+                We prepare authentic Ethiopian dishes made with love and tradition. Our meals bring the taste of home to Japan, inspired by family cooking and cultural heritage.
+            </p>
+            <p class="text-base md:text-lg text-gray-400 leading-relaxed" style="font-family: 'Playfair Display', serif;">
+                ንጽህናቸውን በጠበቀ መልኩ የበሰሉ የሀገራችንን ምግቦችን እንደ ፍላጎትዎ እናቀርባለን።
+            </p>
+            <p class="text-base md:text-lg text-gray-400 leading-relaxed mt-4" style="font-family: 'Playfair Display', serif;">
+                እንዲሁም በ ብዙዎችን ተወዳጅነትን ያተረፈውን በ ነጭ እና በ ጥቁር ጤፍ የተጋገረ እንጀራችንን ማግኘት ይችላሉ።
+            </p>
+            
+            <!-- Contact Information -->
+            <div class="mt-12 pt-8 border-t border-gray-700">
+                <div class="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12">
+                    <div class="flex items-center gap-3">
+                        <svg class="w-6 h-6 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                        </svg>
+                        <a href="tel:080-3911-8822" class="text-xl text-white hover:text-yellow-400 transition-colors font-semibold">
+                            080-3911-8822
+                        </a>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <svg class="w-6 h-6 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        <p class="text-xl text-white font-semibold">
+                            Near Gotanno Station / Ayase Station
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Section -->
+    <section id="order" class="py-20 px-6 bg-black">
+        <div class="container mx-auto max-w-2xl">
+            <h2 class="section-title text-4xl md:text-5xl text-center mb-4 gold-text">
+                Place Your Order
+            </h2>
+            <div class="ethiopian-flag-line max-w-xs mx-auto mb-8"></div>
+            
+            <!-- Order Notice -->
+            <div class="bg-yellow-900 bg-opacity-30 border-l-4 border-yellow-400 rounded-lg p-6 mb-8">
+                <div class="flex items-start gap-4">
+                    <svg class="w-6 h-6 text-yellow-400 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <div>
+                        <h3 class="text-lg font-bold text-yellow-400 mb-2">Important Order Information</h3>
+                        <p class="text-gray-300 mb-2">
+                            <span class="font-semibold text-white">Injera orders require 3 days advance notice.</span> Please place your order at least 3 days before your desired delivery/pickup date.
+                        </p>
+                        <p class="text-gray-300">
+                            <span class="font-semibold text-white">For urgent orders:</span> Please call us at <a href="tel:080-3911-8822" class="text-yellow-400 hover:text-yellow-300 font-semibold underline">080-3911-8822</a> to check availability.
+                        </p>
+                        <p class="text-white text-base md:text-lg mt-4 font-bold" style="font-family: 'Playfair Display', serif;">
+                            ማሳሰቢያ!!የእንጀራ እና የ ምግብ ትዕዛዝ ስለሚበዛብን ሲያዙ ከ 3 ቀን በፊት ይዘዙ። ሆኖም ግን አስቸኩይ ከፈለጉ ደውለው ይጠይቁን ካለ በቶሎ እንልካለን።
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <form action="https://formsubmit.co/fikircatering@gmail.com" method="POST" class="bg-gray-900 rounded-lg p-8 border border-gray-800">
+                <input type="hidden" name="_subject" value="New Order from Fikir Catering Website">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_next" value="">
+                <!-- Optional: Add a thank you page URL above after form submission -->
+                
+                <div class="mb-6">
+                    <label for="name" class="block text-white mb-2 font-semibold">Name ስም *</label>
+                    <input 
+                        type="text" 
+                        id="name" 
+                        name="name" 
+                        required 
+                        class="form-input w-full px-4 py-3 rounded-lg text-white"
+                        placeholder="Your full name"
+                    >
+                </div>
+                
+                <div class="mb-6">
+                    <label for="phone" class="block text-white mb-2 font-semibold">Phone Number ስልክ ቁጥር  *</label>
+                    <input 
+                        type="tel" 
+                        id="phone" 
+                        name="phone" 
+                        required 
+                        class="form-input w-full px-4 py-3 rounded-lg text-white"
+                        placeholder="Your phone number"
+                    >
+                </div>
+                
+                <div class="mb-6">
+                    <label for="orderDetails" class="block text-white mb-2 font-semibold">Order Details ዝርዝር ትዕዛዝ *</label>
+                    <textarea 
+                        id="orderDetails" 
+                        name="orderDetails" 
+                        required 
+                        rows="5"
+                        class="form-input w-full px-4 py-3 rounded-lg text-white resize-none"
+                        placeholder="Please specify your order items and quantities..."
+                    ></textarea>
+                </div>
+                
+                <div class="mb-6">
+                    <label for="deliveryTime" class="block text-white mb-2 font-semibold">Preferred Delivery/Pickup Time የመቀበያ ሰዓት </label>
+                    <input 
+                        type="text" 
+                        id="deliveryTime" 
+                        name="deliveryTime" 
+                        class="form-input w-full px-4 py-3 rounded-lg text-white"
+                        placeholder="e.g., Tomorrow at 6 PM"
+                    >
+                </div>
+                
+                <button 
+                    type="submit" 
+                    class="w-full btn-primary text-white font-semibold px-8 py-4 rounded-lg text-lg"
+                >
+                    Submit Order
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-12 px-6">
+        <div class="ethiopian-flag-line-thin mb-8"></div>
+        <div class="container mx-auto text-center">
+            <p class="text-gray-400 mb-2">
+                © 2025 Fikir Catering Japan — Cooked with love
+            </p>
+            <p class="text-sm text-gray-500" style="font-family: 'Playfair Display', serif;">
+                ሰላም ለ አገራችን 
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    document.getElementById('mobileMenu').classList.add('hidden');
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe menu items
+        document.querySelectorAll('.menu-item').forEach(item => {
+            observer.observe(item);
+        });
+    </script>
+</body>
+</html>
+
