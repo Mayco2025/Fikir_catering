@@ -137,9 +137,23 @@
         
         .menu-image {
             width: 100%;
-            height: 200px;
-            object-fit: cover;
+            height: 250px;
+            object-fit: contain;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
             border-radius: 8px 8px 0 0;
+        }
+        
+        .menu-card-enhanced {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .menu-card-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
         
         .enhanced-menu-card {
@@ -317,7 +331,7 @@
                         <h3 class="text-2xl font-bold mb-3 gold-text" style="font-family: 'Playfair Display', serif;">
                             ነጭ እንጀራ (enjera set )
                         </h3>
-                        <p class="text-gray-400 mb-4">
+                        <p class="text-gray-400 mb-4 flex-grow">
                             Traditional Ethiopian injera. 
                         </p>
                         <div class="space-y-2 text-sm text-gray-300 mb-2">
@@ -355,7 +369,7 @@
                         <h3 class="text-2xl font-bold mb-3 gold-text" style="font-family: 'Playfair Display', serif;">
                             ቀይ እንጀራ (Key Enjera)
                         </h3>
-                        <p class="text-gray-400 mb-4">
+                        <p class="text-gray-400 mb-4 flex-grow">
                             Traditional red teff injera, authentic Ethiopian flavor. የ ቀይ ጤፍ እንጀራ 
                         </p>
                         <div class="space-y-2 text-sm text-gray-300 mb-2">
@@ -400,42 +414,42 @@
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
                 <!-- ሙሉ ዶሮ ወጥ -->
-                <div class="menu-item bg-gray-900 rounded-lg overflow-hidden hover:bg-gray-800 transition-all border border-gray-800 hover:border-yellow-400">
+                <div class="menu-item bg-gray-900 rounded-lg overflow-hidden hover:bg-gray-800 transition-all border border-gray-800 hover:border-yellow-400 menu-card-enhanced">
                     <img src="images/Doro_wet.png" alt="Doro Wat" class="menu-image">
-                    <div class="p-6">
+                    <div class="p-6 menu-card-content">
                         <h3 class="text-2xl font-bold mb-3 gold-text" style="font-family: 'Playfair Display', serif;">ሙሉ ዶሮ ወጥ (በቀይ ወይም በአልጫ)</h3>
-                        <p class="text-gray-400 mb-4">12 ብልት ፣ 12 እንቁላል ፣ አይብ ፣ 6 እንጀራ</p>
-                        <p class="text-2xl font-bold text-white">¥6,500</p>
+                        <p class="text-gray-400 mb-4 flex-grow">12 ብልት ፣ 12 እንቁላል ፣ አይብ ፣ 6 እንጀራ</p>
+                        <p class="text-2xl font-bold text-white mt-auto">¥6,500</p>
                     </div>
                 </div>
                 
                 <!-- ግማሽ ዶሮ ወጥ -->
-                <div class="menu-item bg-gray-900 rounded-lg overflow-hidden hover:bg-gray-800 transition-all border border-gray-800 hover:border-yellow-400">
+                <div class="menu-item bg-gray-900 rounded-lg overflow-hidden hover:bg-gray-800 transition-all border border-gray-800 hover:border-yellow-400 menu-card-enhanced">
                     <img src="images/Doro_wet.png" alt="Doro Wat" class="menu-image">
-                    <div class="p-6">
+                    <div class="p-6 menu-card-content">
                         <h3 class="text-2xl font-bold mb-3 gold-text" style="font-family: 'Playfair Display', serif;">ግማሽ ዶሮ ወጥ (በቀይ ወይም በአልጫ)</h3>
-                        <p class="text-gray-400 mb-4">6 ብልት ፣ 6 እንቁላል ፣ 4 እንጀራ </p>
-                        <p class="text-2xl font-bold text-white">¥4,200</p>
+                        <p class="text-gray-400 mb-4 flex-grow">6 ብልት ፣ 6 እንቁላል ፣ 4 እንጀራ </p>
+                        <p class="text-2xl font-bold text-white mt-auto">¥4,200</p>
                     </div>
                 </div>
                 
                 <!-- ሙሉ ክትፎ -->
-                <div class="menu-item bg-gray-900 rounded-lg overflow-hidden hover:bg-gray-800 transition-all border border-gray-800 hover:border-yellow-400">
+                <div class="menu-item bg-gray-900 rounded-lg overflow-hidden hover:bg-gray-800 transition-all border border-gray-800 hover:border-yellow-400 menu-card-enhanced">
                     <img src="images/Kitfo.png" alt="Kitfo" class="menu-image">
-                    <div class="p-6">
+                    <div class="p-6 menu-card-content">
                         <h3 class="text-2xl font-bold mb-3 gold-text" style="font-family: 'Playfair Display', serif;">ሙሉ ክትፎ</h3>
-                        <p class="text-gray-400 mb-4">1 ኪሎ ክትፎ ፣ አይብ ፣ 6 እንጀራ </p>
-                        <p class="text-2xl font-bold text-white">¥6,500</p>
+                        <p class="text-gray-400 mb-4 flex-grow">1 ኪሎ ክትፎ ፣ አይብ ፣ 6 እንጀራ </p>
+                        <p class="text-2xl font-bold text-white mt-auto">¥6,500</p>
                     </div>
                 </div>
                 
                 <!-- ግማሽ ክትፎ -->
-                <div class="menu-item bg-gray-900 rounded-lg overflow-hidden hover:bg-gray-800 transition-all border border-gray-800 hover:border-yellow-400">
+                <div class="menu-item bg-gray-900 rounded-lg overflow-hidden hover:bg-gray-800 transition-all border border-gray-800 hover:border-yellow-400 menu-card-enhanced">
                     <img src="images/Kitfo.png" alt="Kitfo" class="menu-image">
-                    <div class="p-6">
+                    <div class="p-6 menu-card-content">
                         <h3 class="text-2xl font-bold mb-3 gold-text" style="font-family: 'Playfair Display', serif;">ግማሽ ክትፎ</h3>
-                        <p class="text-gray-400 mb-4">ግማሽ ኪሎ ክትፎ ፣ አይብ ፣ 4 እንጀራ </p>
-                        <p class="text-2xl font-bold text-white">¥4,200</p>
+                        <p class="text-gray-400 mb-4 flex-grow">ግማሽ ኪሎ ክትፎ ፣ አይብ ፣ 4 እንጀራ </p>
+                        <p class="text-2xl font-bold text-white mt-auto">¥4,200</p>
                     </div>
                 </div>
                 
@@ -443,8 +457,8 @@
                 <div class="menu-item bg-gray-900 rounded-lg overflow-hidden hover:bg-gray-800 transition-all border border-gray-800 hover:border-yellow-400">
                     <div class="p-6">
                         <h3 class="text-2xl font-bold mb-3 gold-text" style="font-family: 'Playfair Display', serif;"> ሙሉ የበግ ወጥ በ አልጭ ወይም በቀይ </h3>
-                        <p class="text-gray-400 mb-4"> 6 እንጀራ ጋር </p>
-                        <p class="text-2xl font-bold text-white">¥6,500</p>
+                        <p class="text-gray-400 mb-4 flex-grow"> 6 እንጀራ ጋር </p>
+                        <p class="text-2xl font-bold text-white mt-auto">¥6,500</p>
                     </div>
                 </div>
                 
@@ -452,8 +466,8 @@
                 <div class="menu-item bg-gray-900 rounded-lg overflow-hidden hover:bg-gray-800 transition-all border border-gray-800 hover:border-yellow-400">
                     <div class="p-6">
                         <h3 class="text-2xl font-bold mb-3 gold-text" style="font-family: 'Playfair Display', serif;"> ግማሽ የበግ ወጥ በ አልጫ ወይም በ ቀይ </h3>
-                        <p class="text-gray-400 mb-4"> 4 እንጀራ ጋር</p>
-                        <p class="text-2xl font-bold text-white">¥4,200</p>
+                        <p class="text-gray-400 mb-4 flex-grow"> 4 እንጀራ ጋር</p>
+                        <p class="text-2xl font-bold text-white mt-auto">¥4,200</p>
                     </div>
                 </div>
             </div>
@@ -469,8 +483,8 @@
                 <div class="menu-item bg-gray-900 rounded-lg overflow-hidden hover:bg-gray-800 transition-all border border-gray-800 hover:border-yellow-400">
                     <div class="p-6">
                         <h3 class="text-2xl font-bold mb-3 gold-text" style="font-family: 'Playfair Display', serif;">ምስር ወጥ (በቀይ ወይም በአልጫ)</h3>
-                        <p class="text-gray-400 mb-4">ሙሉ ፓኬጅ፣ 6 እንጀራ ጋር</p>
-                        <p class="text-2xl font-bold text-white">¥5,000</p>
+                        <p class="text-gray-400 mb-4 flex-grow">ሙሉ ፓኬጅ፣ 6 እንጀራ ጋር</p>
+                        <p class="text-2xl font-bold text-white mt-auto">¥5,000</p>
                     </div>
                 </div>
                 
@@ -478,8 +492,8 @@
                 <div class="menu-item bg-gray-900 rounded-lg overflow-hidden hover:bg-gray-800 transition-all border border-gray-800 hover:border-yellow-400">
                     <div class="p-6">
                         <h3 class="text-2xl font-bold mb-3 gold-text" style="font-family: 'Playfair Display', serif;">ምስር ክክ (በቀይ ወይም በአልጫ)</h3>
-                        <p class="text-gray-400 mb-4">ሙሉ ፓኬጅ፣ 6 እንጀራ ጋር</p>
-                        <p class="text-2xl font-bold text-white">¥5,000</p>
+                        <p class="text-gray-400 mb-4 flex-grow">ሙሉ ፓኬጅ፣ 6 እንጀራ ጋር</p>
+                        <p class="text-2xl font-bold text-white mt-auto">¥5,000</p>
                     </div>
                 </div>
                 
@@ -487,8 +501,8 @@
                 <div class="menu-item bg-gray-900 rounded-lg overflow-hidden hover:bg-gray-800 transition-all border border-gray-800 hover:border-yellow-400">
                     <div class="p-6">
                         <h3 class="text-2xl font-bold mb-3 gold-text" style="font-family: 'Playfair Display', serif;">ድንች ወጥ (በቀይ ወይም በአልጫ)</h3>
-                        <p class="text-gray-400 mb-4">ሙሉ ፓኬጅ፣ 6 እንጀራ ጋር</p>
-                        <p class="text-2xl font-bold text-white">¥5,000</p>
+                        <p class="text-gray-400 mb-4 flex-grow">ሙሉ ፓኬጅ፣ 6 እንጀራ ጋር</p>
+                        <p class="text-2xl font-bold text-white mt-auto">¥5,000</p>
                     </div>
                 </div>
                 
@@ -496,8 +510,8 @@
                 <div class="menu-item bg-gray-900 rounded-lg overflow-hidden hover:bg-gray-800 transition-all border border-gray-800 hover:border-yellow-400">
                     <div class="p-6">
                         <h3 class="text-2xl font-bold mb-3 gold-text" style="font-family: 'Playfair Display', serif;">ሽንብራ አሳ (በቀይ ወይም በአልጫ)</h3>
-                        <p class="text-gray-400 mb-4">ሙሉ ፓኬጅ፣ 6 እንጀራ ጋር</p>
-                        <p class="text-2xl font-bold text-white">¥5,000</p>
+                        <p class="text-gray-400 mb-4 flex-grow">ሙሉ ፓኬጅ፣ 6 እንጀራ ጋር</p>
+                        <p class="text-2xl font-bold text-white mt-auto">¥5,000</p>
                     </div>
                 </div>
                 
@@ -505,8 +519,8 @@
                 <div class="menu-item bg-gray-900 rounded-lg overflow-hidden hover:bg-gray-800 transition-all border border-gray-800 hover:border-yellow-400">
                     <div class="p-6">
                         <h3 class="text-2xl font-bold mb-3 gold-text" style="font-family: 'Playfair Display', serif;">ጥቅል ጎመን</h3>
-                        <p class="text-gray-400 mb-4">ሙሉ ፓኬጅ፣ 6 እንጀራ ጋር</p>
-                        <p class="text-2xl font-bold text-white">¥5,000</p>
+                        <p class="text-gray-400 mb-4 flex-grow">ሙሉ ፓኬጅ፣ 6 እንጀራ ጋር</p>
+                        <p class="text-2xl font-bold text-white mt-auto">¥5,000</p>
                     </div>
                 </div>
             </div>
@@ -522,8 +536,8 @@
                 <div class="menu-item bg-gray-900 rounded-lg overflow-hidden hover:bg-gray-800 transition-all border border-gray-800 hover:border-yellow-400">
                     <div class="p-6">
                         <h3 class="text-2xl font-bold mb-3 gold-text" style="font-family: 'Playfair Display', serif;">የጾም የሳምንት ፓኬጅ</h3>
-                        <p class="text-gray-400 mb-4"> ሁሉንም የጾም ምግቦች ያካተተ ፣ ከ 20 እንጀራ ጋር</p>
-                        <p class="text-2xl font-bold text-white">¥17,000</p>
+                        <p class="text-gray-400 mb-4 flex-grow"> ሁሉንም የጾም ምግቦች ያካተተ ፣ ከ 20 እንጀራ ጋር</p>
+                        <p class="text-2xl font-bold text-white mt-auto">¥17,000</p>
                     </div>
                 </div>
                 
@@ -531,8 +545,8 @@
                 <div class="menu-item bg-gray-900 rounded-lg overflow-hidden hover:bg-gray-800 transition-all border border-gray-800 hover:border-yellow-400">
                     <div class="p-6">
                         <h3 class="text-2xl font-bold mb-3 gold-text" style="font-family: 'Playfair Display', serif;">የፍስክ የሳምንት ፓኬጅ</h3>
-                        <p class="text-gray-400 mb-4"> የፍስክ ምግቦችን ያካተተ፣ ከ 20 እንጀራ ጋር</p>
-                        <p class="text-2xl font-bold text-white">¥25,000</p>
+                        <p class="text-gray-400 mb-4 flex-grow"> የፍስክ ምግቦችን ያካተተ፣ ከ 20 እንጀራ ጋር</p>
+                        <p class="text-2xl font-bold text-white mt-auto">¥25,000</p>
                     </div>
                 </div>
             </div>
