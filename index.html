@@ -170,6 +170,58 @@
             transition: transform 0.3s ease;
         }
         
+        /* Package images - minimized background box */
+        .package-image {
+            width: 100%;
+            height: 350px;
+            object-fit: contain;
+            object-position: center;
+            background: transparent;
+            padding: 5px;
+            border-radius: 8px 8px 0 0;
+            display: block;
+            image-rendering: auto;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            transform: translateZ(0);
+            will-change: transform;
+        }
+        
+        @media (min-width: 768px) {
+            .package-image {
+                height: 400px;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .package-image {
+                height: 450px;
+            }
+        }
+        
+        .package-image:hover {
+            transform: scale(1.02) translateZ(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .package-card {
+            min-height: 550px;
+        }
+        
+        @media (min-width: 768px) {
+            .package-card {
+                min-height: 600px;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .package-card {
+                min-height: 650px;
+            }
+        }
+        
         .menu-card-enhanced {
             display: flex;
             flex-direction: column;
@@ -578,8 +630,8 @@
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
                 <!-- የጾም የሳምንት ፓኬጅ -->
-                <div class="menu-item bg-gray-900 rounded-lg overflow-hidden hover:bg-gray-800 transition-all border border-gray-800 hover:border-yellow-400 menu-card-enhanced">
-                    <img src="images/ye_Tsom_package.png" alt="Ye Tsom Package" class="menu-image">
+                <div class="menu-item bg-gray-900 rounded-lg overflow-hidden hover:bg-gray-800 transition-all border border-gray-800 hover:border-yellow-400 menu-card-enhanced package-card">
+                    <img src="images/ye_Tsom_package.png" alt="Ye Tsom Package" class="package-image">
                     <div class="p-6 menu-card-content">
                         <h3 class="text-2xl font-bold mb-3 gold-text" style="font-family: 'Playfair Display', serif;">የጾም የሳምንት ፓኬጅ</h3>
                         <p class="text-gray-400 mb-4 flex-grow"> ሁሉንም የጾም ምግቦች ያካተተ ፣ ከ 20 እንጀራ ጋር</p>
@@ -588,8 +640,8 @@
                 </div>
                 
                 <!-- የፍስክ የሳምንት ፓኬጅ -->
-                <div class="menu-item bg-gray-900 rounded-lg overflow-hidden hover:bg-gray-800 transition-all border border-gray-800 hover:border-yellow-400 menu-card-enhanced">
-                    <img src="images/ye_fisik Pakage .png" alt="Ye Fisik Package" class="menu-image">
+                <div class="menu-item bg-gray-900 rounded-lg overflow-hidden hover:bg-gray-800 transition-all border border-gray-800 hover:border-yellow-400 menu-card-enhanced package-card">
+                    <img src="images/ye_fisik Pakage .png" alt="Ye Fisik Package" class="package-image">
                     <div class="p-6 menu-card-content">
                         <h3 class="text-2xl font-bold mb-3 gold-text" style="font-family: 'Playfair Display', serif;">የፍስክ የሳምንት ፓኬጅ</h3>
                         <p class="text-gray-400 mb-4 flex-grow"> የፍስክ ምግቦችን ያካተተ፣ ከ 20 እንጀራ ጋር</p>
