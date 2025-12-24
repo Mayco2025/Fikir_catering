@@ -109,3 +109,153 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+// Form submission handler - Using EmailJS + WhatsApp
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize EmailJS with your public key
+    if (typeof emailjs !== 'undefined') {
+        emailjs.init('w4GVYNqjiwTeGNs1z');
+    }
+    
+    const orderForm = document.getElementById('orderForm');
+    const thankYouMessage = document.getElementById('thankYouMessage');
+    
+    if (orderForm && thankYouMessage) {
+        orderForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            console.log('Form submit event triggered');
+            
+            // Show "Submitting..." state
+            const submitButton = orderForm.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton ? submitButton.textContent : 'Submit Order';
+            if (submitButton) {
+                submitButton.textContent = 'Submitting...';
+                submitButton.disabled = true;
+            }
+            
+            // Validate form before submission
+            if (!orderForm.checkValidity()) {
+                console.log('Form validation failed');
+                orderForm.reportValidity();
+                if (submitButton) {
+                    submitButton.textContent = originalButtonText;
+                    submitButton.disabled = false;
+                }
+                return;
+            }
+            
+            // Get form data
+            const formData = {
+                name: document.getElementById('name').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                orderDetails: document.getElementById('orderDetails').value.trim(),
+                deliveryTime: document.getElementById('deliveryTime').value.trim() || 'Not specified'
+            };
+            
+            console.log('Form data:', formData);
+            
+            // Format WhatsApp message
+            const whatsappMessage = `🍽️ *New Order from Fikir Catering Website*
+
+👤 *Name:* ${formData.name}
+📞 *Phone:* ${formData.phone}
+📋 *Order Details:*
+${formData.orderDetails}
+
+⏰ *Delivery/Pickup Time:* ${formData.deliveryTime}
+
+---
+This order was submitted from the website.`;
+            
+            // Format email message
+            const emailMessage = `New Order from Fikir Catering Website
+
+Name: ${formData.name}
+Phone: ${formData.phone}
+Order Details: ${formData.orderDetails}
+Delivery/Pickup Time: ${formData.deliveryTime}
+
+---
+This order was submitted from the Fikir Catering website.`;
+            
+            // EmailJS configuration
+            const EMAILJS_SERVICE_ID = 'service_k7nn285';
+            const EMAILJS_TEMPLATE_ID = 'template_f20ebuf';
+            
+            // Prepare EmailJS template parameters
+            const emailParams = {
+                to_email: 'fikircatering@gmail.com',
+                from_name: formData.name,
+                from_phone: formData.phone,
+                message: emailMessage,
+                subject: 'New Order from Fikir Catering Website',
+                order_details: formData.orderDetails,
+                delivery_time: formData.deliveryTime
+            };
+            
+            // Backend endpoint URL - Update this with your deployed backend URL
+            // For local testing: http://localhost:3000/api/submit-order
+            // For production: https://your-backend-url.com/api/submit-order
+            const BACKEND_URL = 'http://localhost:3000/api/submit-order'; // Update this with your backend URL
+            
+            // Send email using EmailJS
+            if (typeof emailjs !== 'undefined' && EMAILJS_SERVICE_ID !== 'YOUR_SERVICE_ID') {
+                emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, emailParams)
+                    .then(function(response) {
+                        console.log('Email sent successfully!', response.status, response.text);
+                    }, function(error) {
+                        console.error('EmailJS error:', error);
+                    });
+            }
+            
+            // Send order to backend for WhatsApp notifications
+            fetch(BACKEND_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: formData.name,
+                    phone: formData.phone,
+                    orderDetails: formData.orderDetails,
+                    deliveryTime: formData.deliveryTime
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log('Order submitted and WhatsApp notifications sent:', data);
+                } else {
+                    console.error('Backend error:', data.error);
+                }
+                // Always show thank you message regardless of backend response
+                handleFormSuccess();
+            })
+            .catch(error => {
+                console.error('Error sending to backend:', error);
+                // Still show thank you message even if backend fails
+                handleFormSuccess();
+            });
+            
+            function handleFormSuccess() {
+                // Show thank you message
+                orderForm.classList.add('hidden');
+                thankYouMessage.classList.remove('hidden');
+                
+                // Scroll to thank you message
+                setTimeout(() => {
+                    thankYouMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+                
+                // Reset form
+                orderForm.reset();
+                
+                // Reset button state
+                if (submitButton) {
+                    submitButton.textContent = originalButtonText;
+                    submitButton.disabled = false;
+                }
+            }
+        });
+    }
+});
+

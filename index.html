@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fikir Catering Japan - Authentic Ethiopian Cuisine</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -41,9 +42,9 @@
     <!-- Hero Section -->
     <section id="home" class="min-h-screen flex items-center justify-center pt-20 px-6 relative bg-gradient-to-b from-gray-900 to-black">
         <!-- Cover Page Background -->
-        <div class="absolute inset-0 overflow-hidden opacity-30">
-            <img src="images/cover page .jpeg" alt="Ethiopian Food Collage" class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+        <div class="absolute inset-0 overflow-hidden">
+            <img src="images/cover page .jpeg" alt="Ethiopian Food Collage" class="w-full h-full object-cover background-image">
+            <div class="absolute inset-0 background-overlay"></div>
         </div>
         <div class="container mx-auto text-center hero-content relative z-10">
             <img src="images/mom logo .png" alt="Fikir Catering Logo" class="hero-logo mx-auto mb-6">
@@ -57,6 +58,10 @@
                     <a href="tel:080-3911-8822" class="text-lg md:text-xl hover:text-yellow-400 transition-colors font-semibold break-words">
                         080-3911-8822 
                     </a>
+                    <span class="text-gray-400 text-sm md:text-base">or</span>
+                    <a href="tel:070-1182-2650" class="text-lg md:text-xl hover:text-yellow-400 transition-colors font-semibold break-words">
+                        070-1182-2650
+                    </a>
                 </div>
                 <div class="flex items-center gap-2 flex-wrap justify-center">
                     <svg class="w-5 h-5 text-yellow-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -64,7 +69,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                     </svg>
                     <p class="text-lg md:text-xl font-semibold break-words">
-                        Near Gotanno / Ayase Station
+                        Anywhere in Japan
                     </p>
                 </div>
             </div>
@@ -72,8 +77,7 @@
             <h1 class="text-5xl md:text-7xl font-bold mb-4 gold-text break-words" style="font-family: 'Playfair Display', serif;">
                 Fikir Catering Japan
             </h1>
-            <p class="text-2xl md:text-3xl mb-2 text-gray-300 break-words">Cooked with Love 
-             <br> Tokyo, Osaka , Kyoto ,chiba ,saitama 
+            <p class="text-2xl md:text-3xl mb-2 text-gray-300 break-words">Cooked with Love
             </p>
             <p class="text-lg md:text-xl mb-8 text-gray-400 break-words" style="font-family: 'Playfair Display', serif;">
                 ፍቅር እንጀራ እና ጣፍጭ ምግቦች 
@@ -87,7 +91,13 @@
     </section>
 
     <!-- Menu Section -->
-    <section id="menu" class="py-20 px-6 bg-black">
+    <section id="menu" class="py-20 px-6 relative bg-gradient-to-b from-gray-900 to-black">
+        <!-- Cover Page Background -->
+        <div class="absolute inset-0 overflow-hidden">
+            <img src="images/cover page .jpeg" alt="Ethiopian Food Collage" class="w-full h-full object-cover background-image">
+            <div class="absolute inset-0 background-overlay"></div>
+        </div>
+        <div class="container mx-auto relative z-10">
         <div class="container mx-auto">
             <h2 class="section-title text-4xl md:text-5xl text-center mb-4 gold-text break-words">
                  ደረቅ እንጀራ  ( injera Set )
@@ -175,8 +185,13 @@
     </section>
 
     <!-- New Menu Sections -->
-    <section class="py-20 px-6 bg-gray-900">
-        <div class="container mx-auto">
+    <section class="py-20 px-6 relative bg-gradient-to-b from-gray-900 to-black">
+        <!-- Cover Page Background -->
+        <div class="absolute inset-0 overflow-hidden">
+            <img src="images/cover page .jpeg" alt="Ethiopian Food Collage" class="w-full h-full object-cover background-image">
+            <div class="absolute inset-0 background-overlay"></div>
+        </div>
+        <div class="container mx-auto relative z-10">
             <!-- የፍስክ ምግቦች Section -->
             <h2 class="section-title text-4xl md:text-5xl text-center mb-4 gold-text break-words" style="font-family: 'Playfair Display', serif;">
                 የፍስክ ምግቦች
@@ -334,8 +349,13 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-20 px-6 bg-gray-900">
-        <div class="container mx-auto max-w-4xl text-center">
+    <section id="about" class="py-20 px-6 relative bg-gradient-to-b from-gray-900 to-black">
+        <!-- Cover Page Background -->
+        <div class="absolute inset-0 overflow-hidden">
+            <img src="images/cover page .jpeg" alt="Ethiopian Food Collage" class="w-full h-full object-cover background-image">
+            <div class="absolute inset-0 background-overlay"></div>
+        </div>
+        <div class="container mx-auto max-w-4xl text-center relative z-10">
             <h2 class="section-title text-4xl md:text-5xl mb-4 gold-text break-words">
                 About Fikir Catering Japan
             </h2>
@@ -360,6 +380,10 @@
                         <a href="tel:080-3911-8822" class="text-xl text-white hover:text-yellow-400 transition-colors font-semibold">
                             080-3911-8822
                         </a>
+                        <span class="text-gray-400">or</span>
+                        <a href="tel:070-1182-2650" class="text-xl text-white hover:text-yellow-400 transition-colors font-semibold">
+                            070-1182-2650
+                        </a>
                     </div>
                     <div class="flex items-center gap-3">
                         <svg class="w-6 h-6 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -367,7 +391,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                         </svg>
                         <p class="text-xl text-white font-semibold">
-                            Near Gotanno Station / Ayase Station
+                            Anywhere in Japan
                         </p>
                     </div>
                 </div>
@@ -376,8 +400,13 @@
     </section>
 
     <!-- Order Section -->
-    <section id="order" class="py-20 px-6 bg-black">
-        <div class="container mx-auto max-w-2xl">
+    <section id="order" class="py-20 px-6 relative bg-gradient-to-b from-gray-900 to-black">
+        <!-- Cover Page Background -->
+        <div class="absolute inset-0 overflow-hidden">
+            <img src="images/cover page .jpeg" alt="Ethiopian Food Collage" class="w-full h-full object-cover background-image">
+            <div class="absolute inset-0 background-overlay"></div>
+        </div>
+        <div class="container mx-auto max-w-2xl relative z-10">
             <h2 class="section-title text-4xl md:text-5xl text-center mb-4 gold-text break-words">
                 Place Your Order
             </h2>
@@ -395,7 +424,7 @@
                             <span class="font-semibold text-white">Injera orders require 3 days advance notice.</span> Please place your order at least 3 days before your desired delivery/pickup date.
                         </p>
                         <p class="text-gray-300">
-                            <span class="font-semibold text-white">For urgent orders:</span> Please call us at <a href="tel:080-3911-8822" class="text-yellow-400 hover:text-yellow-300 font-semibold underline">080-3911-8822</a> to check availability.
+                            <span class="font-semibold text-white">For urgent orders:</span> Please call us at <a href="tel:080-3911-8822" class="text-yellow-400 hover:text-yellow-300 font-semibold underline">080-3911-8822</a> or <a href="tel:070-1182-2650" class="text-yellow-400 hover:text-yellow-300 font-semibold underline">070-1182-2650</a> to check availability.
                         </p>
                         <p class="text-white text-base md:text-lg mt-4 font-bold" style="font-family: 'Playfair Display', serif;">
                             ማሳሰቢያ!!የእንጀራ እና የ ምግብ ትዕዛዝ ስለሚበዛብን ሲያዙ ከ 3 ቀን በፊት ይዘዙ። ሆኖም ግን አስቸኩይ ከፈለጉ ደውለው ይጠይቁን ካለ በቶሎ እንልካለን።
@@ -404,11 +433,38 @@
                 </div>
             </div>
             
-            <form action="https://formsubmit.co/fikircatering@gmail.com" method="POST" class="bg-gray-900 rounded-lg p-8 border border-gray-800">
-                <input type="hidden" name="_subject" value="New Order from Fikir Catering Website">
-                <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_next" value="">
-                <!-- Optional: Add a thank you page URL above after form submission -->
+            <!-- Thank You Message (hidden by default) -->
+            <div id="thankYouMessage" class="bg-gray-900 rounded-lg p-8 border border-gray-800 text-center hidden">
+                <div class="mb-6">
+                    <svg class="w-20 h-20 text-yellow-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold text-yellow-400 mb-4" style="font-family: 'Playfair Display', serif;">
+                    Thank You! እናመሰግናለን!
+                </h2>
+                <p class="text-xl text-white mb-4">
+                    Your order has been received successfully.
+                </p>
+                <p class="text-lg text-gray-300 mb-6">
+                    ትዕዛዝዎ በተሳካ ሁኔታ ተላልፏል። ባስገቡት ስልክ ቁጥር እንደወልሎታለን። 
+                </p>
+                <p class="text-base text-gray-400 mb-6">
+                    We will contact you shortly to confirm your order details.
+                </p>
+                <p class="text-base text-gray-400 mb-8">
+                    ትዕዛዝዎን ለማረጋገጥ በቅርቡ እንጠይቃለን።
+                </p>
+                <button 
+                    onclick="location.reload()" 
+                    class="btn-primary text-white font-semibold px-8 py-3 rounded-lg text-lg"
+                >
+                    Place Another Order
+                </button>
+            </div>
+
+            <form id="orderForm" class="bg-gray-900 rounded-lg p-8 border border-gray-800">
+                <!-- Form submission handled by EmailJS via JavaScript -->
                 
                 <div class="mb-6">
                     <label for="name" class="block text-white mb-2 font-semibold">Name ስም *</label>
@@ -468,9 +524,14 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-black py-12 px-6">
-        <div class="ethiopian-flag-line-thin mb-8"></div>
-        <div class="container mx-auto text-center">
+    <footer class="relative bg-gradient-to-b from-gray-900 to-black py-12 px-6">
+        <!-- Cover Page Background -->
+        <div class="absolute inset-0 overflow-hidden">
+            <img src="images/cover page .jpeg" alt="Ethiopian Food Collage" class="w-full h-full object-cover background-image">
+            <div class="absolute inset-0 background-overlay"></div>
+        </div>
+        <div class="ethiopian-flag-line-thin mb-8 relative z-10"></div>
+        <div class="container mx-auto text-center relative z-10">
             <p class="text-gray-400 mb-2">
                 © 2025 Fikir Catering Japan — Cooked with love
             </p>
