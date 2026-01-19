@@ -119,10 +119,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const orderForm = document.getElementById('orderForm');
     const thankYouMessage = document.getElementById('thankYouMessage');
     
+    // Flag to prevent double submission
+    let isSubmitting = false;
+    
     if (orderForm && thankYouMessage) {
         orderForm.addEventListener('submit', function(e) {
             e.preventDefault();
+            
+            // Prevent double submission
+            if (isSubmitting) {
+                console.log('Form is already being submitted, ignoring duplicate submission');
+                return;
+            }
+            
             console.log('Form submit event triggered');
+            isSubmitting = true;
             
             // Show "Submitting..." state
             const submitButton = orderForm.querySelector('button[type="submit"]');
@@ -136,6 +147,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!orderForm.checkValidity()) {
                 console.log('Form validation failed');
                 orderForm.reportValidity();
+                isSubmitting = false; // Reset flag on validation failure
                 if (submitButton) {
                     submitButton.textContent = originalButtonText;
                     submitButton.disabled = false;
@@ -182,14 +194,13 @@ This order was submitted from the Fikir Catering website.`;
             const EMAILJS_TEMPLATE_ID = 'template_f20ebuf';
             
             // Prepare EmailJS template parameters
+            // Match your EmailJS template variable names exactly: {{name}}, {{phone}}, {{order}}, {{preferred_time}}
             const emailParams = {
-                to_email: 'fikircatering@gmail.com',
-                from_name: formData.name,
-                from_phone: formData.phone,
-                message: emailMessage,
-                subject: 'New Order from Fikir Catering Website',
-                order_details: formData.orderDetails,
-                delivery_time: formData.deliveryTime
+                name: formData.name,
+                phone: formData.phone,
+                order: formData.orderDetails,
+                preferred_time: formData.deliveryTime,
+                email: formData.phone // For reply-to field (using phone as contact)
             };
             
             // Backend endpoint URL - Update this with your deployed backend URL
@@ -249,7 +260,8 @@ This order was submitted from the Fikir Catering website.`;
                 // Reset form
                 orderForm.reset();
                 
-                // Reset button state
+                // Reset button state and submission flag
+                isSubmitting = false;
                 if (submitButton) {
                     submitButton.textContent = originalButtonText;
                     submitButton.disabled = false;
