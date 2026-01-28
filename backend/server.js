@@ -42,21 +42,23 @@ const recipientNumbers = [
 // Order submission endpoint
 app.post('/api/submit-order', async (req, res) => {
     try {
-        const { name, phone, orderDetails, deliveryTime } = req.body;
+        const { name, phone, orderType, deliveryAddress, orderDetails, deliveryTime } = req.body;
 
         // Validate required fields
-        if (!name || !phone || !orderDetails) {
+        if (!name || !phone || !deliveryAddress || !orderDetails) {
             return res.status(400).json({ 
                 success: false, 
-                error: 'Missing required fields: name, phone, orderDetails' 
+                error: 'Missing required fields: name, phone, deliveryAddress, orderDetails' 
             });
         }
 
         // Format WhatsApp message
+        const orderTypeLabel = orderType === 'pickup' ? 'Pickup Location' : 'Delivery Address';
         const whatsappMessage = `🍽️ *New Order from Fikir Catering Website*
 
 👤 *Name:* ${name}
 📞 *Phone:* ${phone}
+${orderType === 'pickup' ? '🏪' : '📍'} *${orderTypeLabel}:* ${deliveryAddress}
 📋 *Order Details:*
 ${orderDetails}
 
