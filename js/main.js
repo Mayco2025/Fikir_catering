@@ -119,6 +119,100 @@ document.addEventListener('DOMContentLoaded', function() {
     const orderForm = document.getElementById('orderForm');
     const thankYouMessage = document.getElementById('thankYouMessage');
     
+    // Handle delivery/pickup selection
+    const deliveryTypeRadios = document.querySelectorAll('input[name="deliveryType"]');
+    const deliveryAddressField = document.getElementById('deliveryAddressField');
+    const deliveryAddressInput = document.getElementById('deliveryAddress');
+    const pickupLocationInfo = document.getElementById('pickupLocationInfo');
+    
+    // Ensure fields are hidden by default
+    if (deliveryAddressField) {
+        deliveryAddressField.style.display = 'none';
+        deliveryAddressField.classList.add('hidden');
+    }
+    if (pickupLocationInfo) {
+        pickupLocationInfo.style.display = 'none';
+        pickupLocationInfo.classList.add('hidden');
+    }
+    if (deliveryAddressInput) {
+        deliveryAddressInput.removeAttribute('required');
+    }
+    
+    if (deliveryTypeRadios.length > 0) {
+        deliveryTypeRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.value === 'delivery') {
+                    // Show delivery address field, hide pickup info
+                    if (deliveryAddressField) {
+                        deliveryAddressField.style.display = 'block';
+                        deliveryAddressField.classList.remove('hidden');
+                    }
+                    if (deliveryAddressInput) {
+                        deliveryAddressInput.setAttribute('required', 'required');
+                    }
+                    if (pickupLocationInfo) {
+                        pickupLocationInfo.style.display = 'none';
+                        pickupLocationInfo.classList.add('hidden');
+                    }
+                } else if (this.value === 'pickup') {
+                    // Hide delivery address field, show pickup info
+                    if (deliveryAddressField) {
+                        deliveryAddressField.style.display = 'none';
+                        deliveryAddressField.classList.add('hidden');
+                    }
+                    if (deliveryAddressInput) {
+                        deliveryAddressInput.removeAttribute('required');
+                        deliveryAddressInput.value = ''; // Clear the field
+                    }
+                    if (pickupLocationInfo) {
+                        pickupLocationInfo.style.display = 'block';
+                        pickupLocationInfo.classList.remove('hidden');
+                    }
+                }
+            });
+        });
+    }
+    
+    // Handle Injera type selection
+    const nechEnjeraCheck = document.getElementById('nechEnjeraCheck');
+    const keyEnjeraCheck = document.getElementById('keyEnjeraCheck');
+    const nechEnjeraOptions = document.getElementById('nechEnjeraOptions');
+    const keyEnjeraOptions = document.getElementById('keyEnjeraOptions');
+    
+    if (nechEnjeraCheck && nechEnjeraOptions) {
+        nechEnjeraCheck.addEventListener('change', function() {
+            if (this.checked) {
+                nechEnjeraOptions.classList.remove('hidden');
+                nechEnjeraOptions.style.display = 'block';
+            } else {
+                nechEnjeraOptions.classList.add('hidden');
+                nechEnjeraOptions.style.display = 'none';
+                // Clear text input
+                const nechQuantityInput = document.getElementById('nechQuantity');
+                if (nechQuantityInput) {
+                    nechQuantityInput.value = '';
+                }
+            }
+        });
+    }
+    
+    if (keyEnjeraCheck && keyEnjeraOptions) {
+        keyEnjeraCheck.addEventListener('change', function() {
+            if (this.checked) {
+                keyEnjeraOptions.classList.remove('hidden');
+                keyEnjeraOptions.style.display = 'block';
+            } else {
+                keyEnjeraOptions.classList.add('hidden');
+                keyEnjeraOptions.style.display = 'none';
+                // Clear text input
+                const keyQuantityInput = document.getElementById('keyQuantity');
+                if (keyQuantityInput) {
+                    keyQuantityInput.value = '';
+                }
+            }
+        });
+    }
+    
     // Flag to prevent double submission
     let isSubmitting = false;
     
@@ -155,22 +249,121 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
+            // Validate that at least one injera type is selected
+            const nechEnjeraChecked = document.getElementById('nechEnjeraCheck')?.checked || false;
+            const keyEnjeraChecked = document.getElementById('keyEnjeraCheck')?.checked || false;
+            
+            if (!nechEnjeraChecked && !keyEnjeraChecked) {
+                alert('Please select at least one injera type (ነጭ እንጀራ or ቀይ እንጀራ)');
+                isSubmitting = false;
+                if (submitButton) {
+                    submitButton.textContent = originalButtonText;
+                    submitButton.disabled = false;
+                }
+                return;
+            }
+            
+            // Validate quantities are selected for checked injera types
+            if (nechEnjeraChecked) {
+                const nechQuantityInput = document.getElementById('nechQuantity');
+                const nechQuantity = nechQuantityInput?.value.trim();
+                if (!nechQuantity) {
+                    alert('Please enter a quantity for ነጭ እንጀራ (Nech Enjera)');
+                    isSubmitting = false;
+                    if (submitButton) {
+                        submitButton.textContent = originalButtonText;
+                        submitButton.disabled = false;
+                    }
+                    if (nechQuantityInput) {
+                        nechQuantityInput.focus();
+                    }
+                    return;
+                }
+            }
+            
+            if (keyEnjeraChecked) {
+                const keyQuantityInput = document.getElementById('keyQuantity');
+                const keyQuantity = keyQuantityInput?.value.trim();
+                if (!keyQuantity) {
+                    alert('Please enter a quantity for ቀይ እንጀራ (Key Enjera)');
+                    isSubmitting = false;
+                    if (submitButton) {
+                        submitButton.textContent = originalButtonText;
+                        submitButton.disabled = false;
+                    }
+                    if (keyQuantityInput) {
+                        keyQuantityInput.focus();
+                    }
+                    return;
+                }
+            }
+            
+            // Validate delivery address if delivery is selected
+            const deliveryType = document.querySelector('input[name="deliveryType"]:checked')?.value || '';
+            const deliveryAddress = document.getElementById('deliveryAddress')?.value.trim() || '';
+            
+            if (deliveryType === 'delivery' && !deliveryAddress) {
+                alert('Please enter your delivery address');
+                isSubmitting = false;
+                if (submitButton) {
+                    submitButton.textContent = originalButtonText;
+                    submitButton.disabled = false;
+                }
+                // Show the delivery address field
+                const deliveryAddressField = document.getElementById('deliveryAddressField');
+                if (deliveryAddressField) {
+                    deliveryAddressField.style.display = 'block';
+                    deliveryAddressField.classList.remove('hidden');
+                    document.getElementById('deliveryAddress')?.focus();
+                }
+                return;
+            }
+            
             // Get form data
+            
+            // Build order details from injera selections
+            let orderItems = [];
+            
+            if (nechEnjeraChecked) {
+                const nechQuantityInput = document.getElementById('nechQuantity');
+                const nechQuantity = nechQuantityInput?.value.trim() || '';
+                orderItems.push(`ነጭ እንጀራ (Nech Enjera): ${nechQuantity} pieces`);
+            }
+            
+            if (keyEnjeraChecked) {
+                const keyQuantityInput = document.getElementById('keyQuantity');
+                const keyQuantity = keyQuantityInput?.value.trim() || '';
+                orderItems.push(`ቀይ እንጀራ (Key Enjera): ${keyQuantity} pieces`);
+            }
+            
+            const additionalNotes = document.getElementById('orderDetails')?.value.trim() || '';
+            const orderDetailsText = orderItems.join('\n') + (additionalNotes ? '\n\nAdditional Notes:\n' + additionalNotes : '');
+            
             const formData = {
                 name: document.getElementById('name').value.trim(),
                 phone: document.getElementById('phone').value.trim(),
-                orderDetails: document.getElementById('orderDetails').value.trim(),
+                deliveryType: deliveryType,
+                deliveryAddress: deliveryAddress,
+                orderDetails: orderDetailsText,
                 deliveryTime: document.getElementById('deliveryTime').value.trim() || 'Not specified'
             };
             
             console.log('Form data:', formData);
+            
+            // Format delivery/pickup info for messages
+            let deliveryInfo = '';
+            if (formData.deliveryType === 'delivery') {
+                deliveryInfo = `🚚 *Delivery Type:* Delivery\n📍 *Delivery Address:* ${formData.deliveryAddress || 'Not provided'}\n`;
+            } else if (formData.deliveryType === 'pickup') {
+                deliveryInfo = `🚶 *Delivery Type:* Pickup\n📍 *Pickup Location:* Kitasenju Station\n`;
+            }
             
             // Format WhatsApp message
             const whatsappMessage = `🍽️ *New Order from Fikir Catering Website*
 
 👤 *Name:* ${formData.name}
 📞 *Phone:* ${formData.phone}
-📋 *Order Details:*
+${deliveryInfo}📋 *Order Details:*
 ${formData.orderDetails}
 
 ⏰ *Delivery/Pickup Time:* ${formData.deliveryTime}
@@ -183,6 +376,8 @@ This order was submitted from the website.`;
 
 Name: ${formData.name}
 Phone: ${formData.phone}
+Delivery Type: ${formData.deliveryType === 'delivery' ? 'Delivery' : 'Pickup'}
+${formData.deliveryType === 'delivery' ? `Delivery Address: ${formData.deliveryAddress || 'Not provided'}` : 'Pickup Location: Kitasenju Station'}
 Order Details: ${formData.orderDetails}
 Delivery/Pickup Time: ${formData.deliveryTime}
 
@@ -198,6 +393,8 @@ This order was submitted from the Fikir Catering website.`;
             const emailParams = {
                 name: formData.name,
                 phone: formData.phone,
+                delivery_type: formData.deliveryType === 'delivery' ? 'Delivery' : 'Pickup',
+                delivery_address: formData.deliveryType === 'delivery' ? (formData.deliveryAddress || 'Not provided') : 'Kitasenju Station',
                 order: formData.orderDetails,
                 preferred_time: formData.deliveryTime,
                 email: formData.phone // For reply-to field (using phone as contact)
@@ -227,6 +424,8 @@ This order was submitted from the Fikir Catering website.`;
                 body: JSON.stringify({
                     name: formData.name,
                     phone: formData.phone,
+                    deliveryType: formData.deliveryType,
+                    deliveryAddress: formData.deliveryAddress,
                     orderDetails: formData.orderDetails,
                     deliveryTime: formData.deliveryTime
                 })
