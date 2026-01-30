@@ -1,3 +1,126 @@
+// Order Form Event Handlers - Mobile & Desktop Compatible
+document.addEventListener('DOMContentLoaded', function() {
+    // Get all form elements
+    const deliveryRadios = document.querySelectorAll('input[name="deliveryType"]');
+    const deliveryAddressField = document.getElementById('deliveryAddressField');
+    const deliveryAddressInput = document.getElementById('deliveryAddress');
+    const pickupLocationInfo = document.getElementById('pickupLocationInfo');
+    
+    const nechEnjeraCheck = document.getElementById('nechEnjeraCheck');
+    const nechEnjeraOptions = document.getElementById('nechEnjeraOptions');
+    const nechQuantityInput = document.getElementById('nechQuantity');
+    
+    const keyEnjeraCheck = document.getElementById('keyEnjeraCheck');
+    const keyEnjeraOptions = document.getElementById('keyEnjeraOptions');
+    const keyQuantityInput = document.getElementById('keyQuantity');
+    
+    // Function to handle delivery/pickup selection
+    function handleDeliveryPickupChange() {
+        const selectedRadio = document.querySelector('input[name="deliveryType"]:checked');
+        
+        if (!selectedRadio) {
+            if (deliveryAddressField) deliveryAddressField.style.display = 'none';
+            if (pickupLocationInfo) pickupLocationInfo.style.display = 'none';
+            return;
+        }
+        
+        if (selectedRadio.value === 'delivery') {
+            // Show delivery address, hide pickup info
+            if (deliveryAddressField) {
+                deliveryAddressField.style.display = 'block';
+            }
+            if (deliveryAddressInput) {
+                deliveryAddressInput.setAttribute('required', 'required');
+            }
+            if (pickupLocationInfo) {
+                pickupLocationInfo.style.display = 'none';
+            }
+        } else if (selectedRadio.value === 'pickup') {
+            // Hide delivery address, show pickup info
+            if (deliveryAddressField) {
+                deliveryAddressField.style.display = 'none';
+            }
+            if (deliveryAddressInput) {
+                deliveryAddressInput.removeAttribute('required');
+                deliveryAddressInput.value = '';
+            }
+            if (pickupLocationInfo) {
+                pickupLocationInfo.style.display = 'block';
+            }
+        }
+    }
+    
+    // Function to handle Nech Enjera checkbox
+    function handleNechEnjeraChange() {
+        if (!nechEnjeraCheck || !nechEnjeraOptions) return;
+        
+        if (nechEnjeraCheck.checked) {
+            nechEnjeraOptions.style.display = 'block';
+            if (nechQuantityInput) {
+                nechQuantityInput.setAttribute('required', 'required');
+            }
+        } else {
+            nechEnjeraOptions.style.display = 'none';
+            if (nechQuantityInput) {
+                nechQuantityInput.value = '';
+                nechQuantityInput.removeAttribute('required');
+            }
+        }
+    }
+    
+    // Function to handle Key Enjera checkbox
+    function handleKeyEnjeraChange() {
+        if (!keyEnjeraCheck || !keyEnjeraOptions) return;
+        
+        if (keyEnjeraCheck.checked) {
+            keyEnjeraOptions.style.display = 'block';
+            if (keyQuantityInput) {
+                keyQuantityInput.setAttribute('required', 'required');
+            }
+        } else {
+            keyEnjeraOptions.style.display = 'none';
+            if (keyQuantityInput) {
+                keyQuantityInput.value = '';
+                keyQuantityInput.removeAttribute('required');
+            }
+        }
+    }
+    
+    // Attach change event listeners to radio buttons (works on mobile)
+    if (deliveryRadios.length > 0) {
+        deliveryRadios.forEach(function(radio) {
+            radio.addEventListener('change', handleDeliveryPickupChange);
+            // Also listen for input event as fallback for some mobile browsers
+            radio.addEventListener('input', handleDeliveryPickupChange);
+        });
+    }
+    
+    // Attach change event listeners to checkboxes (works on mobile)
+    if (nechEnjeraCheck) {
+        nechEnjeraCheck.addEventListener('change', handleNechEnjeraChange);
+        nechEnjeraCheck.addEventListener('input', handleNechEnjeraChange);
+    }
+    
+    if (keyEnjeraCheck) {
+        keyEnjeraCheck.addEventListener('change', handleKeyEnjeraChange);
+        keyEnjeraCheck.addEventListener('input', handleKeyEnjeraChange);
+    }
+    
+    // Initialize hidden state
+    if (deliveryAddressField) {
+        deliveryAddressField.style.display = 'none';
+    }
+    if (pickupLocationInfo) {
+        pickupLocationInfo.style.display = 'none';
+    }
+    if (nechEnjeraOptions) {
+        nechEnjeraOptions.style.display = 'none';
+    }
+    if (keyEnjeraOptions) {
+        keyEnjeraOptions.style.display = 'none';
+    }
+});
+
 // Navbar scroll effect
 window.addEventListener('scroll', function() {
     const navbar = document.getElementById('navbar');
@@ -119,10 +242,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const orderForm = document.getElementById('orderForm');
     const thankYouMessage = document.getElementById('thankYouMessage');
     
+    // Flag to prevent double submission
+    let isSubmitting = false;
+    
     if (orderForm && thankYouMessage) {
         orderForm.addEventListener('submit', function(e) {
             e.preventDefault();
+            
+            // Prevent double submission
+            if (isSubmitting) {
+                console.log('Form is already being submitted, ignoring duplicate submission');
+                return;
+            }
+            
             console.log('Form submit event triggered');
+            isSubmitting = true;
             
             // Show "Submitting..." state
             const submitButton = orderForm.querySelector('button[type="submit"]');
@@ -136,6 +270,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!orderForm.checkValidity()) {
                 console.log('Form validation failed');
                 orderForm.reportValidity();
+                isSubmitting = false; // Reset flag on validation failure
                 if (submitButton) {
                     submitButton.textContent = originalButtonText;
                     submitButton.disabled = false;
@@ -144,22 +279,101 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             // Get form data
+            const deliveryType = document.querySelector('input[name="deliveryType"]:checked')?.value || '';
+            const deliveryAddress = document.getElementById('deliveryAddress')?.value.trim() || '';
+            const nechEnjeraCheck = document.getElementById('nechEnjeraCheck');
+            const keyEnjeraCheck = document.getElementById('keyEnjeraCheck');
+            const nechQuantity = nechEnjeraCheck?.checked ? document.getElementById('nechQuantity')?.value.trim() : '';
+            const keyQuantity = keyEnjeraCheck?.checked ? document.getElementById('keyQuantity')?.value.trim() : '';
+            
+            // Validate that at least one injera type is selected
+            if ((!nechEnjeraCheck?.checked && !keyEnjeraCheck?.checked) || 
+                (nechEnjeraCheck?.checked && !nechQuantity) || 
+                (keyEnjeraCheck?.checked && !keyQuantity)) {
+                alert('Please select at least one injera type and enter the quantity.');
+                isSubmitting = false;
+                if (submitButton) {
+                    submitButton.textContent = originalButtonText;
+                    submitButton.disabled = false;
+                }
+                return;
+            }
+            
+            // Validate delivery address if delivery is selected
+            if (deliveryType === 'delivery' && !deliveryAddress) {
+                alert('Please enter your delivery address.');
+                isSubmitting = false;
+                if (submitButton) {
+                    submitButton.textContent = originalButtonText;
+                    submitButton.disabled = false;
+                }
+                return;
+            }
+            const additionalNotes = document.getElementById('additionalNotes')?.value.trim() || '';
+            
+            // Build order details
+            let orderDetails = [];
+            if (nechEnjeraCheck?.checked && nechQuantity) {
+                orderDetails.push(`ነጭ እንጀራ (Nech Enjera): ${nechQuantity} pieces`);
+            }
+            if (keyEnjeraCheck?.checked && keyQuantity) {
+                orderDetails.push(`ቀይ እንጀራ (Key Enjera): ${keyQuantity} pieces`);
+            }
+            if (additionalNotes) {
+                orderDetails.push(`Additional Notes: ${additionalNotes}`);
+            }
+            
             const formData = {
                 name: document.getElementById('name').value.trim(),
                 phone: document.getElementById('phone').value.trim(),
-                orderDetails: document.getElementById('orderDetails').value.trim(),
+                deliveryType: deliveryType,
+                deliveryAddress: deliveryAddress,
+                orderDetails: orderDetails.join('\n'),
                 deliveryTime: document.getElementById('deliveryTime').value.trim() || 'Not specified'
             };
             
             console.log('Form data:', formData);
+            
+            // Format delivery/pickup information
+            let deliveryTypeText = '';
+            let deliveryAddressText = '';
+            if (formData.deliveryType === 'delivery') {
+                deliveryTypeText = 'Delivery';
+                deliveryAddressText = formData.deliveryAddress || 'Not provided';
+            } else if (formData.deliveryType === 'pickup') {
+                deliveryTypeText = 'Pickup';
+                deliveryAddressText = 'Kitasenju Station';
+            }
+            
+            // Format order details (injera selections and additional notes)
+            let formattedOrder = '';
+            
+            // Add injera selections
+            if (nechEnjeraCheck?.checked && nechQuantity) {
+                formattedOrder += `ነጭ እንጀራ (Nech Enjera): ${nechQuantity} pieces\n`;
+            }
+            if (keyEnjeraCheck?.checked && keyQuantity) {
+                formattedOrder += `ቀይ እንጀራ (Key Enjera): ${keyQuantity} pieces\n`;
+            }
+            
+            // Add additional notes if any
+            if (additionalNotes) {
+                if (formattedOrder) formattedOrder += '\n';
+                formattedOrder += `Additional Notes:\n${additionalNotes}`;
+            }
+            
+            if (!nechEnjeraCheck?.checked && !keyEnjeraCheck?.checked && !additionalNotes) {
+                formattedOrder = 'No items selected';
+            }
             
             // Format WhatsApp message
             const whatsappMessage = `🍽️ *New Order from Fikir Catering Website*
 
 👤 *Name:* ${formData.name}
 📞 *Phone:* ${formData.phone}
-📋 *Order Details:*
-${formData.orderDetails}
+🚚 *Delivery Type:* ${deliveryTypeText}
+${formData.deliveryType === 'delivery' && formData.deliveryAddress ? `📍 *Delivery Address:* ${formData.deliveryAddress}\n` : ''}📋 *Order Details:*
+${formattedOrder}
 
 ⏰ *Delivery/Pickup Time:* ${formData.deliveryTime}
 
@@ -171,7 +385,9 @@ This order was submitted from the website.`;
 
 Name: ${formData.name}
 Phone: ${formData.phone}
-Order Details: ${formData.orderDetails}
+Delivery Type: ${deliveryTypeText}
+${formData.deliveryType === 'delivery' ? `Delivery Address: ${formData.deliveryAddress || 'Not provided'}` : 'Pickup Location: Kitasenju Station'}
+Order Details: ${formattedOrder}
 Delivery/Pickup Time: ${formData.deliveryTime}
 
 ---
@@ -182,14 +398,16 @@ This order was submitted from the Fikir Catering website.`;
             const EMAILJS_TEMPLATE_ID = 'template_f20ebuf';
             
             // Prepare EmailJS template parameters
+            // Updated EmailJS template format:
+            // Template variables: {{name}}, {{phone}}, {{delivery_type}}, {{delivery_address}}, {{order}}, {{preferred_time}}
             const emailParams = {
-                to_email: 'fikircatering@gmail.com',
-                from_name: formData.name,
-                from_phone: formData.phone,
-                message: emailMessage,
-                subject: 'New Order from Fikir Catering Website',
-                order_details: formData.orderDetails,
-                delivery_time: formData.deliveryTime
+                name: formData.name,
+                phone: formData.phone,
+                delivery_type: deliveryTypeText,
+                delivery_address: deliveryAddressText,
+                order: formattedOrder,
+                preferred_time: formData.deliveryTime || 'Not specified',
+                email: formData.phone // For reply-to field (using phone as contact)
             };
             
             // Backend endpoint URL - Update this with your deployed backend URL
@@ -216,6 +434,8 @@ This order was submitted from the Fikir Catering website.`;
                 body: JSON.stringify({
                     name: formData.name,
                     phone: formData.phone,
+                    deliveryType: formData.deliveryType,
+                    deliveryAddress: formData.deliveryAddress,
                     orderDetails: formData.orderDetails,
                     deliveryTime: formData.deliveryTime
                 })
@@ -249,7 +469,8 @@ This order was submitted from the Fikir Catering website.`;
                 // Reset form
                 orderForm.reset();
                 
-                // Reset button state
+                // Reset button state and submission flag
+                isSubmitting = false;
                 if (submitButton) {
                     submitButton.textContent = originalButtonText;
                     submitButton.disabled = false;

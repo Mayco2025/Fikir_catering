@@ -271,6 +271,16 @@ html {
     border-color: rgba(255, 255, 255, 0.1);
 }
 
+/* Zoom effect for all menu items except injera */
+.menu-item:not(.injera-item) {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
+
+.menu-item:not(.injera-item):hover {
+    transform: scale(1.08);
+}
+
 .menu-item:nth-child(1) {
     animation-delay: 0.1s;
 }
@@ -389,21 +399,23 @@ html {
         font-size: 1.25rem !important;
     }
 
-    /* Injera grid container on mobile - make it wider */
-    .grid.max-w-6xl {
+    /* All grid containers on mobile - make them wider like injera */
+    .grid.max-w-6xl,
+    .grid {
         max-width: 100% !important;
         width: 100% !important;
         padding-left: 0.25rem !important;
-        /* Minimal padding for maximum width */
+        /* Minimal padding for maximum width - match injera */
         padding-right: 0.25rem !important;
     }
 
-    /* Override container max-width for injera section on mobile */
-    #menu .container.mx-auto {
+    /* Override container max-width for all menu sections on mobile - match injera */
+    #menu .container.mx-auto,
+    section .container.mx-auto {
         max-width: 100% !important;
         width: 100% !important;
         padding-left: 0 !important;
-        /* No padding for maximum width */
+        /* No padding for maximum width - match injera */
         padding-right: 0 !important;
     }
 
@@ -946,20 +958,46 @@ img[loading="lazy"].loaded {
         margin-bottom: 2rem !important;
     }
 
-    /* Reduce menu item spacing */
+    /* All menu items - match injera card sizes */
     .menu-item {
-        margin-bottom: 1.5rem;
-        /* More space between cards */
+        width: 100%;
+        margin-bottom: 2rem;
+        /* Match injera spacing */
+        padding: 0;
+    }
+
+    /* Zoom effect for all menu items except injera on mobile */
+    .menu-item:not(.injera-item) {
+        transform: scale(1.05);
+        transition: transform 0.3s ease;
+    }
+
+    .menu-item:not(.injera-item):hover {
+        transform: scale(1.08);
+    }
+
+    /* Ensure injera items don't get zoomed */
+    .menu-item.injera-item {
+        transform: none !important;
+    }
+
+    /* All menu item images - match injera image size */
+    .menu-item .menu-image {
+        height: 450px !important;
+        /* Match injera image height */
+        width: 100%;
+        object-fit: cover;
     }
 
     .menu-item .p-6 {
-        padding: 1.5rem !important;
-        /* More padding for better spacing */
+        padding: 2rem !important;
+        /* Match injera padding */
     }
 
-    /* Menu card content - better spacing */
+    /* Menu card content - match injera spacing */
     .menu-card-content {
-        padding: 1.5rem !important;
+        padding: 2rem !important;
+        /* Match injera padding */
     }
 
     /* Reduce form spacing */
@@ -996,10 +1034,10 @@ img[loading="lazy"].loaded {
         word-break: break-word;
     }
 
-    /* Menu item titles - prevent overflow */
+    /* Menu item titles - match injera title size */
     .menu-item h3 {
-        font-size: 1.5rem !important;
-        /* Bigger titles */
+        font-size: 1.75rem !important;
+        /* Match injera title size */
         line-height: 1.4;
         word-break: break-word;
         overflow-wrap: break-word;
@@ -1007,27 +1045,38 @@ img[loading="lazy"].loaded {
         margin-bottom: 1rem !important;
     }
 
-    /* Menu item descriptions - ensure proper wrapping */
+    /* Menu item descriptions - match injera description size */
     .menu-item .text-gray-400 {
+        font-size: 1.1rem !important;
+        /* Match injera description size */
+        line-height: 1.6;
+        margin-bottom: 1.5rem !important;
         word-break: break-word;
         overflow-wrap: break-word;
         hyphens: auto;
     }
 
-    /* Menu descriptions - prevent overflow */
+    /* Menu descriptions - match injera description size */
     .menu-item p {
-        font-size: 1rem;
-        /* Bigger descriptions */
+        font-size: 1.1rem !important;
+        /* Match injera description size */
         line-height: 1.6;
+        margin-bottom: 1.5rem !important;
         word-break: break-word;
         overflow-wrap: break-word;
     }
 
-    /* Menu prices - bigger and more visible */
+    /* Menu prices - match injera price size */
     .menu-item .text-2xl {
         font-size: 1.75rem !important;
-        /* Bigger prices */
+        /* Match injera price size */
         font-weight: 700 !important;
+    }
+
+    /* Menu item price text - match injera price text size */
+    .menu-item .gold-text.font-semibold {
+        font-size: 1.25rem !important;
+        /* Match injera price text size */
     }
 
     /* Contact info - prevent overflow */
