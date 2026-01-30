@@ -389,14 +389,51 @@ This order was submitted from the Fikir Catering website.`;
             const EMAILJS_TEMPLATE_ID = 'template_f20ebuf';
             
             // Prepare EmailJS template parameters
-            // Match your EmailJS template variable names exactly: {{name}}, {{phone}}, {{order}}, {{preferred_time}}
+            // Updated EmailJS template format:
+            // Template variables: {{name}}, {{phone}}, {{delivery_type}}, {{delivery_address}}, {{order}}, {{preferred_time}}
+            
+            // Format delivery/pickup information
+            let deliveryTypeText = '';
+            let deliveryAddressText = '';
+            if (formData.deliveryType === 'delivery') {
+                deliveryTypeText = 'Delivery';
+                deliveryAddressText = formData.deliveryAddress || 'Not provided';
+            } else if (formData.deliveryType === 'pickup') {
+                deliveryTypeText = 'Pickup';
+                deliveryAddressText = 'Kitasenju Station';
+            }
+            
+            // Format order details (injera selections and additional notes)
+            let formattedOrder = '';
+            
+            // Add injera selections
+            if (nechEnjeraChecked) {
+                const nechQuantity = document.getElementById('nechQuantity')?.value.trim() || '';
+                formattedOrder += `ነጭ እንጀራ (Nech Enjera): ${nechQuantity} pieces\n`;
+            }
+            if (keyEnjeraChecked) {
+                const keyQuantity = document.getElementById('keyQuantity')?.value.trim() || '';
+                formattedOrder += `ቀይ እንጀራ (Key Enjera): ${keyQuantity} pieces\n`;
+            }
+            
+            // Add additional notes if any
+            const additionalNotes = document.getElementById('orderDetails')?.value.trim() || '';
+            if (additionalNotes) {
+                if (formattedOrder) formattedOrder += '\n';
+                formattedOrder += `Additional Notes:\n${additionalNotes}`;
+            }
+            
+            if (!nechEnjeraChecked && !keyEnjeraChecked && !additionalNotes) {
+                formattedOrder = 'No items selected';
+            }
+            
             const emailParams = {
                 name: formData.name,
                 phone: formData.phone,
-                delivery_type: formData.deliveryType === 'delivery' ? 'Delivery' : 'Pickup',
-                delivery_address: formData.deliveryType === 'delivery' ? (formData.deliveryAddress || 'Not provided') : 'Kitasenju Station',
-                order: formData.orderDetails,
-                preferred_time: formData.deliveryTime,
+                delivery_type: deliveryTypeText,
+                delivery_address: deliveryAddressText,
+                order: formattedOrder,
+                preferred_time: formData.deliveryTime || 'Not specified',
                 email: formData.phone // For reply-to field (using phone as contact)
             };
             
