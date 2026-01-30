@@ -4,6 +4,7 @@
 
 const express = require('express');
 const twilio = require('twilio');
+const path = require('path');
 require('dotenv').config();
 const cors = require('cors');
 
@@ -14,6 +15,9 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Serve static files from the parent directory (root of the project)
+app.use(express.static(path.join(__dirname, '..')));
 
 // Twilio configuration (get these from Twilio Console)
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
@@ -99,8 +103,25 @@ app.get('/api/health', (req, res) => {
     res.json({ status: 'ok', message: 'Server is running' });
 });
 
-app.listen(PORT, () => {
+// Serve index.html for root and other routes (for SPA)
+app.get('*', (req, res) => {
+    // Don't serve index.html for API routes
+    if (req.path.startsWith('/api/')) {
+        return res.status(404).json({ error: 'API endpoint not found' });
+    }
+    res.sendFile(path.join(__dirname, '..', 'index.html'));
+});
+
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running on port ${PORT}`);
+    console.log(`Local access: http://localhost:${PORT}`);
+    console.log(`Network access: http://YOUR_IP:${PORT}`);
     console.log(`Order endpoint: http://localhost:${PORT}/api/submit-order`);
+    console.log(`\nTo access from your phone:`);
+    console.log(`1. Make sure your phone is on the same Wi-Fi network`);
+    console.log(`2. Find your computer's IP address:`);
+    console.log(`   - macOS: System Settings > Network > Wi-Fi (or run: ipconfig getifaddr en0)`);
+    console.log(`   - Or check: ifconfig | grep "inet " | grep -v 127.0.0.1`);
+    console.log(`3. Open http://YOUR_IP:${PORT} on your phone's browser`);
 });
 
