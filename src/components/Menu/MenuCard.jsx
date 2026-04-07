@@ -16,7 +16,7 @@ export default function MenuCard({ item, isInjera = false }) {
           }
         })
       },
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
     )
     observer.observe(el)
     return () => observer.disconnect()
@@ -27,21 +27,12 @@ export default function MenuCard({ item, isInjera = false }) {
     document.getElementById('order')?.scrollIntoView({ behavior: 'smooth' })
   }
 
-  const isService = Boolean(item.includes)
-  const isExtra   = Boolean(item.price && !item.includes)
-
-  // Injera: always vertical
-  // Service/Extra: horizontal on mobile (< sm), vertical on sm+
-  const cardClass = [
-    'menu-item',
-    isInjera ? 'injera-item' : 'menu-card-enhanced',
-    item.comingSoon ? 'coming-soon' : '',
-    'bg-gray-900 rounded-xl overflow-hidden border border-gray-800 hover:border-yellow-400 transition-all relative',
-    isInjera ? 'flex flex-col' : 'flex flex-row sm:flex-col',
-  ].filter(Boolean).join(' ')
+  const isPaired = Boolean(item.options)
+  const isExtra  = Boolean(item.price && !item.options && !item.prices)
 
   return (
-    <div className={cardClass} ref={ref}>
+    <div ref={ref} className="menu-item flex flex-col p-0">
+
       {item.comingSoon && (
         <>
           <div className="coming-soon-badge">Coming Soon</div>
@@ -51,117 +42,84 @@ export default function MenuCard({ item, isInjera = false }) {
         </>
       )}
 
-      {/* ── Image ── */}
-      {isInjera ? (
-        // Injera: full-width, 4:3 ratio, always vertical
+      <div className="overflow-hidden rounded-2xl mb-4 md:mb-6">
         <img
-          src={item.image} alt={item.alt}
-          className="w-full object-cover flex-shrink-0"
-          style={{ aspectRatio: '4/3' }}
-          loading="lazy"
+          src={item.image}
+          alt={item.alt}
+          className="w-full object-cover transition-transform duration-700 hover:scale-105 aspect-square"
         />
-      ) : (
-        // Service/Extra: narrow column on mobile, full-width on sm+
-        <img
-          src={item.image} alt={item.alt}
-          className="w-24 sm:w-full flex-shrink-0 self-stretch sm:self-auto object-cover sm:h-52 md:h-60"
-          loading="lazy"
-        />
-      )}
+      </div>
 
-      {/* ── Card body ── */}
-      <div className={`flex flex-col flex-1 min-w-0 ${isInjera ? 'p-4 md:p-6' : 'p-3 sm:p-5 md:p-6'}`}>
+      {/* Body */}
+      <div className="flex flex-col flex-1 px-3 md:px-6 lg:px-8 pb-3 md:pb-6">
 
-        {/* Injera: tiered prices */}
-        {item.prices && (
-          <>
-            <h3 className="text-base sm:text-xl md:text-2xl font-bold mb-2 gold-text leading-snug"
-              style={{ fontFamily: "'Playfair Display', serif" }}>
-              {item.name}
-            </h3>
-            {item.description && (
-              <p className="text-gray-200 text-sm sm:text-base font-semibold mb-3">{item.description}</p>
-            )}
-            <div className="ethiopian-flag-line-thin mb-3" />
-            <div className="space-y-1.5 flex-1">
-              {item.prices.map(({ label, price }) => (
-                <div key={label} className="flex items-center justify-between gap-1">
-                  <span className="text-gray-200 text-sm sm:text-base font-semibold">{label}</span>
-                  <span className="gold-text font-bold tabular-nums text-sm sm:text-base">{price}</span>
+        <h3 className="amharic text-2xl md:text-3xl lg:text-4xl font-black mb-2 md:mb-3 text-white" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.4)' }}>
+          {item.name}
+        </h3>
+
+        {item.description && (
+          <p className="amharic text-base md:text-lg font-medium mb-3" style={{ color: '#EAE0D0' }}>
+            {item.description}
+          </p>
+        )}
+
+        <div className="ethiopian-flag-line-thin mb-4" />
+
+        {/* Injera prices */}
+        {isInjera && item.prices && (
+          <div className="flex-1 space-y-1 mb-2">
+            {item.prices.map(({ label, price }, i) => (
+              <div key={label}
+                   className="flex items-center justify-between py-2.5 px-3 rounded-lg"
+                   style={{ background: i % 2 === 0 ? 'rgba(212,160,23,0.06)' : 'transparent' }}>
+                <span className="amharic text-base md:text-lg font-bold" style={{ color: '#F0E8D8' }}>{label}</span>
+                <span className="price-tag text-lg md:text-xl font-extrabold">{price}</span>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Paired options */}
+        {isPaired && (
+          <div className="space-y-4 flex-1">
+            {item.options.map((opt, i) => (
+              <div key={opt.label}
+                   className="rounded-xl p-3 md:p-4"
+                   style={{ background: 'rgba(212,160,23,0.05)', border: '1px solid rgba(212,160,23,0.1)' }}>
+                <div className="flex items-center justify-between mb-3">
+                  <span
+                    className="amharic text-lg md:text-xl font-extrabold px-3 py-1 rounded-lg text-white"
+                    style={{ background: 'rgba(212,160,23,0.12)', border: '1px solid rgba(212,160,23,0.15)' }}
+                  >
+                    {opt.label}
+                  </span>
+                  <span className="price-tag text-xl md:text-2xl font-black">{opt.price}</span>
                 </div>
-              ))}
-            </div>
-            {!item.comingSoon && (
-              <button onClick={handleOrderThis}
-                className="mt-3 self-start text-sm font-semibold text-yellow-400 hover:text-yellow-300 transition-colors">
-                Order →
-              </button>
-            )}
-          </>
+                <ul className="grid grid-cols-2 gap-x-4 gap-y-2">
+                  {opt.includes.map((ing) => (
+                    <li key={ing} className="flex items-center gap-2.5">
+                      <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: '#D4A017' }} />
+                      <span className="amharic text-base md:text-lg font-semibold" style={{ color: '#F0E4D0' }}>{ing}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         )}
 
-        {/* Service: name + price + divider + ingredients */}
-        {isService && (
-          <>
-            {/* On mobile (horizontal card): name then price stacked. On sm+: side by side */}
-            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-0.5 sm:gap-3 mb-2">
-              <h3 className="text-sm sm:text-lg md:text-xl font-bold gold-text leading-snug"
-                style={{ fontFamily: "'Playfair Display', serif" }}>
-                {item.name}
-              </h3>
-              <span className="text-sm sm:text-xl md:text-2xl font-black gold-text sm:whitespace-nowrap sm:flex-shrink-0">
-                {item.price}
-              </span>
-            </div>
-
-            <div className="ethiopian-flag-line-thin mb-2" />
-
-            <p className="text-gray-400 text-xs uppercase tracking-widest mb-1.5 font-semibold">
-              ፦ የሚያካትተዉ
-            </p>
-            {/* 1 col on mobile (narrow), 2 col on sm+ */}
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-1 flex-1">
-              {item.includes.map((ingredient) => (
-                <li key={ingredient} className="flex items-start gap-1.5">
-                  <span className="mt-1 w-1.5 h-1.5 rounded-full bg-yellow-400 flex-shrink-0" />
-                  <span className="text-xs sm:text-base font-semibold text-gray-100 leading-snug">{ingredient}</span>
-                </li>
-              ))}
-            </ul>
-            {!item.comingSoon && (
-              <button onClick={handleOrderThis}
-                className="mt-3 self-start text-xs sm:text-sm font-semibold text-yellow-400 hover:text-yellow-300 transition-colors">
-                Order →
-              </button>
-            )}
-          </>
-        )}
-
-        {/* Extra: name + divider + description + price */}
+        {/* Extra price */}
         {isExtra && (
-          <>
-            <h3 className="text-sm sm:text-xl md:text-2xl font-bold mb-2 gold-text leading-snug"
-              style={{ fontFamily: "'Playfair Display', serif" }}>
-              {item.name}
-            </h3>
-            <div className="ethiopian-flag-line-thin mb-2" />
-            <p className="text-gray-200 text-xs sm:text-base font-semibold mb-2 flex-1 leading-snug">
-              {item.description}
-            </p>
-            <div className="flex items-center justify-between mt-auto">
-              <span className="text-sm sm:text-2xl font-black gold-text">
-                {item.price}
-              </span>
-              {!item.comingSoon && (
-                <button onClick={handleOrderThis}
-                  className="text-xs sm:text-sm font-semibold text-yellow-400 hover:text-yellow-300 transition-colors">
-                  Order →
-                </button>
-              )}
-            </div>
-          </>
+          <div className="flex items-center mt-auto pt-2">
+            <span className="price-tag text-2xl md:text-3xl font-black">{item.price}</span>
+          </div>
         )}
 
+        {!item.comingSoon && (
+          <button onClick={handleOrderThis} className="order-btn mt-5 self-start text-sm md:text-base px-7 py-3">
+            እዘዝ →
+          </button>
+        )}
       </div>
     </div>
   )
