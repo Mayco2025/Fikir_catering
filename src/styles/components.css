@@ -377,16 +377,16 @@
     padding: 0;
   }
 
-  /* Show full image, no cropping */
+  /* Full image, natural aspect ratio — no cropping, no bars */
   .menu-item .menu-image,
   .menu-item.injera-item .menu-image,
   .menu-card-enhanced .menu-image,
   .menu-item:not(.menu-card-enhanced) .menu-image {
-    height: auto !important;
-    max-height: 220px !important;
     width: 100% !important;
-    object-fit: contain !important;
-    background: rgba(17, 24, 39, 0.6) !important;
+    height: auto !important;
+    max-height: none !important;
+    object-fit: fill !important;
+    background: none !important;
     flex-shrink: 0;
     margin: 0;
     padding: 0;
