@@ -75,14 +75,14 @@ export default function MenuCard({ item, isInjera = false }) {
               {item.name}
             </h3>
             {item.description && (
-              <p className="text-gray-400 text-sm mb-3">{item.description}</p>
+              <p className="text-gray-200 text-base font-semibold mb-3">{item.description}</p>
             )}
             <div className="ethiopian-flag-line-thin mb-3" />
-            <div className="space-y-2 text-sm text-gray-300 flex-1">
+            <div className="space-y-2 flex-1">
               {item.prices.map(({ label, price }) => (
                 <div key={label} className="flex items-center justify-between gap-2">
-                  <span className="text-gray-300">{label}</span>
-                  <span className="gold-text font-bold tabular-nums">{price}</span>
+                  <span className="text-gray-200 text-base font-semibold">{label}</span>
+                  <span className="gold-text font-bold tabular-nums text-base">{price}</span>
                 </div>
               ))}
             </div>
@@ -120,11 +120,11 @@ export default function MenuCard({ item, isInjera = false }) {
             <p className="text-gray-400 text-xs uppercase tracking-widest mb-2 font-semibold">
               ፦ የሚያካትተዉ
             </p>
-            <ul className="grid grid-cols-2 gap-x-3 gap-y-1.5 flex-1">
+            <ul className="grid grid-cols-2 gap-x-3 gap-y-2 flex-1">
               {item.includes.map((ingredient) => (
-                <li key={ingredient} className="flex items-start gap-1.5 text-sm text-gray-200">
-                  <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-yellow-400 flex-shrink-0" />
-                  <span>{ingredient}</span>
+                <li key={ingredient} className="flex items-start gap-1.5 text-gray-100">
+                  <span className="mt-2 w-1.5 h-1.5 rounded-full bg-yellow-400 flex-shrink-0" />
+                  <span className="text-base font-semibold">{ingredient}</span>
                 </li>
               ))}
             </ul>
@@ -149,7 +149,7 @@ export default function MenuCard({ item, isInjera = false }) {
               {item.name}
             </h3>
             <div className="ethiopian-flag-line-thin mb-3" />
-            <p className="text-gray-400 text-sm mb-4 flex-1">{item.description}</p>
+            <p className="text-gray-200 text-base font-semibold mb-4 flex-1">{item.description}</p>
             <div className="flex items-center justify-between">
               <span
                 className="text-2xl font-black gold-text"
