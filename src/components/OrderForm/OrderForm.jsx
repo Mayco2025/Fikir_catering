@@ -3,7 +3,7 @@ import { initEmailJS, sendEmail } from '../../services/emailjs'
 import { serviceItems, extraItems } from '../../data/menuData'
 import ThankYou from './ThankYou'
 
-const WHATSAPP_NUMBER = '819039118822'
+const WHATSAPP_NUMBER = '817011822650'
 const TELEGRAM_URL    = 'https://t.me/+819039118822'
 const SERVICE_IDS = serviceItems.map((s) => s.id)
 
