@@ -17,9 +17,9 @@ export const injeraItems = [
     alt: 'ነጭ እንጀራ',
     comingSoon: false,
     prices: [
-      { label: '1 እንጀራ',   price: '¥400'    },
-      { label: '15 እንጀራ',  price: '¥6,000'  },
-      { label: '30 እንጀራ',  price: '¥12,000' },
+      { label: '1 እንጀራ',   price: '¥500'    },
+      { label: '15 እንጀራ',  price: '¥7,500'  },
+      { label: '30 እንጀራ',  price: '¥15,000' },
     ],
   },
   {
