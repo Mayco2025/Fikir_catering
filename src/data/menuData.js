@@ -48,12 +48,12 @@ export const serviceItems = [
     options: [
       {
         label: 'ሙሉ',
-        price: '¥20,000',
+        price: '¥21,000',
         includes: ['10 እንጀራ', 'ቀይ ዶሮ', 'አልጫ ስጋወጥ', 'ጎመን በስጋ', 'ክትፎ', 'አይብ', 'እንቁላል'],
       },
       {
         label: 'ግማሽ',
-        price: '¥15,000',
+        price: '¥15,600',
         includes: ['6 እንጀራ', 'ቀይ ዶሮ', 'አልጫ ስጋወጥ', 'ጎመን በስጋ', 'ክትፎ', 'አይብ', 'እንቁላ'],
       },
     ],
@@ -67,12 +67,12 @@ export const serviceItems = [
     options: [
       {
         label: 'ሙሉ',
-        price: '¥15,000',
+        price: '¥16,000',
         includes: ['10 እንጀራ', 'ምስር', 'ጥቅል ጎመን', 'አልጫ ድንች', 'ሽንብራ አሳ', 'ፎሶልያ በካሮት', 'ስንግ'],
       },
       {
         label: 'ግማሽ',
-        price: '¥10,000',
+        price: '¥10,600',
         includes: ['6 እንጀራ', 'ምስር', 'ጥቅል ጎመን', 'አልጫ ድንች', 'ሽንብራ አሳ', 'ፎሶሊያ በካሮት', 'ስንግ'],
       },
     ],
@@ -83,16 +83,16 @@ export const serviceItems = [
     image: kitfoImg,
     alt: 'ክትፎ',
     comingSoon: false,
-    description: 'ጭማሪ እንጀራ ማዘዝ ይቻላል።',
+    description: 'ጭማሪ እንጀራ ¥500 / 1 ማዘዝ ይቻላል።',
     options: [
       {
         label: 'ሙሉ',
-        price: '¥15,000',
+        price: '¥15,500',
         includes: ['አንድ ኪሎ ስጋ', '5 እንጀራ', 'አይብ', 'ጎመን', 'ክትፎ'],
       },
       {
         label: 'ግማሽ',
-        price: '¥9,000',
+        price: '¥9,400',
         includes: ['ግማሽ ኪሎ ስጋ', '4 እንጀራ', 'አይብ', 'ጎመን', 'ክትፎ'],
       },
     ],
@@ -106,12 +106,12 @@ export const serviceItems = [
     options: [
       {
         label: 'ሙሉ',
-        price: '¥17,000',
+        price: '¥18,000',
         includes: ['10 እንጀራ', '12 እንቁላል', '12 የዶሮ እግር', 'አይብ'],
       },
       {
         label: 'ግማሽ',
-        price: '¥10,000',
+        price: '¥10,600',
         includes: ['6 እንጀራ', '6 እንቁላል', '6 የዶሮ እግር', 'አይብ'],
       },
     ],

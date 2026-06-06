@@ -26,28 +26,30 @@ function parsePrice(s) { const m = s.match(/¥([\d,]+)/); return m ? parseInt(m[
 function getSelectedOption(item, idx) { return item.options?.[parseInt(idx)] }
 
 function computeTotal(form) {
-  let total = 0, hasInjera = form.nechChecked || form.keyChecked
+  let total = 0
+  if (form.nechChecked && form.nechQuantity) total += (parseInt(form.nechQuantity) || 0) * 500
+  if (form.keyChecked && form.keyQuantity) total += (parseInt(form.keyQuantity) || 0) * 500
   serviceItems.forEach((item) => {
     if (form[item.id] !== '') { const o = getSelectedOption(item, form[item.id]); if (o) total += parsePrice(o.price) }
   })
   if (form.daboChecked && form.daboQty) total += (parseInt(form.daboQty) || 0) * 2500
   if (form.tejChecked && form.tejQty) total += (parseInt(form.tejQty) || 0) * 2000
-  return { total, hasInjera }
+  return { total }
 }
 
 function buildWhatsAppMessage(form) {
   const l = ['🍽️ *New Order - Fikir Catering*', '', `👤 Name: ${form.name}`, `📞 Phone: ${form.phone}`]
   l.push(`🚚 ${form.deliveryType === 'delivery' ? `Delivery to: ${form.deliveryAddress}` : 'Pickup at Kitasenju'}`)
   l.push('', '📋 Order:')
-  if (form.nechChecked && form.nechQuantity) l.push(`• ነጭ እንጀራ x${form.nechQuantity}`)
-  if (form.keyChecked && form.keyQuantity) l.push(`• ቀይ እንጀራ x${form.keyQuantity}`)
+  if (form.nechChecked && form.nechQuantity) l.push(`• ነጭ እንጀራ x${form.nechQuantity} — ¥${((parseInt(form.nechQuantity) || 0) * 500).toLocaleString()}`)
+  if (form.keyChecked && form.keyQuantity) l.push(`• ቀይ እንጀራ x${form.keyQuantity} — ¥${((parseInt(form.keyQuantity) || 0) * 500).toLocaleString()}`)
   serviceItems.forEach((item) => { if (form[item.id] !== '') { const o = getSelectedOption(item, form[item.id]); if (o) l.push(`• ${item.name} (${o.label}) — ${o.price}`) } })
   if (form.daboChecked && form.daboQty) l.push(`• ድፎ ዳቦ x${form.daboQty} kg — ¥${(parseInt(form.daboQty) || 0) * 2500}`)
   if (form.tejChecked && form.tejQty) l.push(`• የማር ብርዝ x${form.tejQty} L — ¥${(parseInt(form.tejQty) || 0) * 2000}`)
   if (form.additionalNotes.trim()) { l.push('', `📝 Notes: ${form.additionalNotes.trim()}`) }
   l.push(`⏰ Time: ${form.deliveryTime}`)
-  const { total, hasInjera } = computeTotal(form)
-  if (total > 0 || hasInjera) { l.push('', hasInjera && total === 0 ? '💴 Total: (injera price depends on quantity)' : hasInjera ? `💴 Est. Total: ¥${total.toLocaleString()} + injera` : `💴 Total: ¥${total.toLocaleString()}`) }
+  const { total } = computeTotal(form)
+  if (total > 0) { l.push('', `💴 Total: ¥${total.toLocaleString()}`) }
   return l.join('\n')
 }
 
@@ -114,8 +116,8 @@ export default function OrderForm() {
 
     setSubmitting(true)
     const emailLines = []
-    if (form.nechChecked && form.nechQuantity) emailLines.push(`ነጭ እንጀራ: ${form.nechQuantity}`)
-    if (form.keyChecked && form.keyQuantity) emailLines.push(`ቀይ እንጀራ: ${form.keyQuantity}`)
+    if (form.nechChecked && form.nechQuantity) emailLines.push(`ነጭ እንጀራ: ${form.nechQuantity} — ¥${((parseInt(form.nechQuantity) || 0) * 500).toLocaleString()}`)
+    if (form.keyChecked && form.keyQuantity) emailLines.push(`ቀይ እንጀራ: ${form.keyQuantity} — ¥${((parseInt(form.keyQuantity) || 0) * 500).toLocaleString()}`)
     serviceItems.forEach((item) => { if (form[item.id] !== '') { const o = getSelectedOption(item, form[item.id]); if (o) emailLines.push(`${item.name} (${o.label}): ${o.price}`) } })
     if (form.daboChecked && form.daboQty) emailLines.push(`ድፎ ዳቦ: ${form.daboQty} kg`)
     if (form.tejChecked && form.tejQty) emailLines.push(`የማር ብርዝ: ${form.tejQty} L`)
@@ -138,7 +140,7 @@ export default function OrderForm() {
     setTimeout(() => { document.getElementById('thankYouMessage')?.scrollIntoView({ behavior: 'smooth', block: 'center' }) }, 100)
   }
 
-  const { total, hasInjera } = computeTotal(form)
+  const { total } = computeTotal(form)
   const hasAnySelected = form.nechChecked || form.keyChecked || SERVICE_IDS.some((id) => form[id] !== '') || form.daboChecked || form.tejChecked
 
   return (
@@ -177,7 +179,7 @@ export default function OrderForm() {
                 <input type="checkbox" className="w-5 h-5 accent-amber-600 rounded flex-shrink-0" checked={form.nechChecked} onChange={(e) => set('nechChecked', e.target.checked)} />
                 <div className="flex-1">
                   <span className="amharic font-bold text-base text-white">ነጭ እንጀራ</span>
-                  <span className="block text-xs font-semibold mt-0.5" style={{ color: '#F0C040' }}>¥400 / 1 · ¥6,000 / 15 · ¥12,000 / 30</span>
+                  <span className="block text-xs font-semibold mt-0.5" style={{ color: '#F0C040' }}>¥500 / 1 · ¥7,500 / 15 · ¥15,000 / 30</span>
                 </div>
               </label>
               {form.nechChecked && (
@@ -335,9 +337,7 @@ export default function OrderForm() {
               <div className="rounded-xl p-5 text-center" style={{ background: 'rgba(212,160,23,0.12)', border: '1px solid rgba(212,160,23,0.2)' }}>
                 <p className="text-xs uppercase tracking-widest mb-2 font-bold" style={{ color: '#D4C4A8' }}>ጠቅላላ ዋጋ</p>
                 <p className="text-3xl md:text-4xl font-black" style={{ color: '#F0C040', textShadow: '0 2px 8px rgba(212,160,23,0.3)' }}>
-                  {total > 0 ? `¥${total.toLocaleString()}` : ''}
-                  {hasInjera && total > 0 ? ' + እንጀራ' : ''}
-                  {hasInjera && total === 0 ? 'እንጀራ (በብዛት ይለያያል)' : ''}
+                  {total > 0 ? `¥${total.toLocaleString()}` : '—'}
                 </p>
               </div>
             )}
